@@ -154,17 +154,17 @@ BEGIN
 						WHEN "0101" => readdata <= 
 							RECTANGLE_VSTART_paddle_2;
 							-- when "0110" => readdata <= 
-							to_unsigned(l3);
-							-- when "0111" => readdata <= 
-							to_unsigned(l2); 
-							-- when "1000" => readdata <= 
-							to_unsigned(l1);
-							-- when "1001" => readdata <= 
-							to_unsigned(r3); 
-							-- when "1010" => readdata <= 
-							to_unsigned(r2); 
-							-- when "1011" => readdata <= 
-							to_unsigned(r1); 
+							-- to_unsigned(l3);
+							-- -- when "0111" => readdata <= 
+							-- to_unsigned(l2); 
+							-- -- when "1000" => readdata <= 
+							-- to_unsigned(l1);
+							-- -- when "1001" => readdata <= 
+							-- to_unsigned(r3); 
+							-- -- when "1010" => readdata <= 
+							-- to_unsigned(r2); 
+							-- -- when "1011" => readdata <= 
+							-- to_unsigned(r1); 
 						WHEN OTHERS => readdata <= 
 							X"0000";
 					END CASE;

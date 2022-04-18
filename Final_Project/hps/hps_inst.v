@@ -43,7 +43,6 @@
 		.hps_io_hps_io_uart0_inst_RX        (<connected-to-hps_io_hps_io_uart0_inst_RX>),        //                            .hps_io_uart0_inst_RX
 		.hps_io_hps_io_uart0_inst_TX        (<connected-to-hps_io_hps_io_uart0_inst_TX>),        //                            .hps_io_uart0_inst_TX
 		.hps_io_hps_io_gpio_inst_GPIO35     (<connected-to-hps_io_hps_io_gpio_inst_GPIO35>),     //                            .hps_io_gpio_inst_GPIO35
-		.key_external_connection_export     (<connected-to-key_external_connection_export>),     //     key_external_connection.export
 		.memory_mem_a                       (<connected-to-memory_mem_a>),                       //                      memory.mem_a
 		.memory_mem_ba                      (<connected-to-memory_mem_ba>),                      //                            .mem_ba
 		.memory_mem_ck                      (<connected-to-memory_mem_ck>),                      //                            .mem_ck
@@ -59,6 +58,10 @@
 		.memory_mem_dqs_n                   (<connected-to-memory_mem_dqs_n>),                   //                            .mem_dqs_n
 		.memory_mem_odt                     (<connected-to-memory_mem_odt>),                     //                            .mem_odt
 		.memory_mem_dm                      (<connected-to-memory_mem_dm>),                      //                            .mem_dm
-		.memory_oct_rzqin                   (<connected-to-memory_oct_rzqin>)                    //                            .oct_rzqin
+		.memory_oct_rzqin                   (<connected-to-memory_oct_rzqin>),                   //                            .oct_rzqin
+		.key0_external_connection_export    (<connected-to-key0_external_connection_export>),    //    key0_external_connection.export
+		.key1_external_connection_export    (<connected-to-key1_external_connection_export>),    //    key1_external_connection.export
+		.key2_external_connection_export    (<connected-to-key2_external_connection_export>),    //    key2_external_connection.export
+		.key3_external_connection_export    (<connected-to-key3_external_connection_export>)     //    key3_external_connection.export
 	);
 

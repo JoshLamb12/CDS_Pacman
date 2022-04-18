@@ -24,6 +24,11 @@
          value = "3";
          type = "int";
       }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
    }
    element de10_vga_raster_0.avalon_slave_0
    {
@@ -81,7 +86,7 @@
          type = "int";
       }
    }
-   element key
+   element key0
    {
       datum _sortIndex
       {
@@ -89,7 +94,55 @@
          type = "int";
       }
    }
-   element key.s1
+   element key0.s1
+   {
+      datum baseAddress
+      {
+         value = "80";
+         type = "String";
+      }
+   }
+   element key1
+   {
+      datum _sortIndex
+      {
+         value = "4";
+         type = "int";
+      }
+   }
+   element key1.s1
+   {
+      datum baseAddress
+      {
+         value = "64";
+         type = "String";
+      }
+   }
+   element key2
+   {
+      datum _sortIndex
+      {
+         value = "5";
+         type = "int";
+      }
+   }
+   element key2.s1
+   {
+      datum baseAddress
+      {
+         value = "48";
+         type = "String";
+      }
+   }
+   element key3
+   {
+      datum _sortIndex
+      {
+         value = "6";
+         type = "int";
+      }
+   }
+   element key3.s1
    {
       datum baseAddress
       {
@@ -161,8 +214,23 @@
    dir="end" />
  <interface name="hps_io" internal="hps_0.hps_io" type="conduit" dir="end" />
  <interface
-   name="key_external_connection"
-   internal="key.external_connection"
+   name="key0_external_connection"
+   internal="key0.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="key1_external_connection"
+   internal="key1.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="key2_external_connection"
+   internal="key2.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="key3_external_connection"
+   internal="key3.external_connection"
    type="conduit"
    dir="end" />
  <interface name="memory" internal="hps_0.memory" type="conduit" dir="end" />
@@ -707,7 +775,7 @@
   <parameter name="usb_mp_clk_div" value="0" />
   <parameter name="use_default_mpu_clk" value="true" />
  </module>
- <module name="key" kind="altera_avalon_pio" version="18.1" enabled="1">
+ <module name="key0" kind="altera_avalon_pio" version="18.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -719,7 +787,49 @@
   <parameter name="resetValue" value="0" />
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
-  <parameter name="width" value="4" />
+  <parameter name="width" value="1" />
+ </module>
+ <module name="key1" kind="altera_avalon_pio" version="18.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="50000000" />
+  <parameter name="direction" value="Input" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="1" />
+ </module>
+ <module name="key2" kind="altera_avalon_pio" version="18.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="50000000" />
+  <parameter name="direction" value="Input" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="1" />
+ </module>
+ <module name="key3" kind="altera_avalon_pio" version="18.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="50000000" />
+  <parameter name="direction" value="Input" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="1" />
  </module>
  <connection
    kind="avalon"
@@ -734,12 +844,42 @@
    kind="avalon"
    version="18.1"
    start="hps_0.h2f_lw_axi_master"
-   end="key.s1">
+   end="key0.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0050" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="hps_0.h2f_lw_axi_master"
+   end="key1.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0040" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="hps_0.h2f_lw_axi_master"
+   end="key2.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0030" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="hps_0.h2f_lw_axi_master"
+   end="key3.s1">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0020" />
   <parameter name="defaultConnection" value="false" />
  </connection>
- <connection kind="clock" version="18.1" start="clk_0.clk" end="key.clk" />
+ <connection kind="clock" version="18.1" start="clk_0.clk" end="key0.clk" />
+ <connection kind="clock" version="18.1" start="clk_0.clk" end="key1.clk" />
+ <connection kind="clock" version="18.1" start="clk_0.clk" end="key2.clk" />
+ <connection kind="clock" version="18.1" start="clk_0.clk" end="key3.clk" />
  <connection
    kind="clock"
    version="18.1"
@@ -750,12 +890,15 @@
    version="18.1"
    start="clk_0.clk"
    end="hps_0.h2f_lw_axi_clock" />
- <connection kind="reset" version="18.1" start="clk_0.clk_reset" end="key.reset" />
  <connection
    kind="reset"
    version="18.1"
    start="clk_0.clk_reset"
    end="de10_vga_raster_0.reset" />
+ <connection kind="reset" version="18.1" start="clk_0.clk_reset" end="key0.reset" />
+ <connection kind="reset" version="18.1" start="clk_0.clk_reset" end="key1.reset" />
+ <connection kind="reset" version="18.1" start="clk_0.clk_reset" end="key2.reset" />
+ <connection kind="reset" version="18.1" start="clk_0.clk_reset" end="key3.reset" />
  <connection
    kind="reset"
    version="18.1"

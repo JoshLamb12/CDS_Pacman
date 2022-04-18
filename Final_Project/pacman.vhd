@@ -51,11 +51,11 @@ port
 	AUD_DACLRCK     	:inout 	std_logic;
 	AUD_XCK         	:out   	std_logic;
 
-	------------ PS2 ------------
+	------------ PS2 ------------ only 1 keyboard used see manual page 40
 	PS2_CLK         	:inout 	std_logic;
-	PS2_CLK2        	:inout 	std_logic;
+--	PS2_CLK2        	:inout 	std_logic;
 	PS2_DAT         	:inout 	std_logic;
-	PS2_DAT2        	:inout 	std_logic;
+--	PS2_DAT2        	:inout 	std_logic;
 
 	------------ I2C for Audio and Video-In ------------
 	FPGA_I2C_SCLK   	:out   	std_logic;
@@ -180,7 +180,6 @@ architecture rtl of pacman is
 			hps_io_hps_io_uart0_inst_RX        : in    std_logic                     := 'X';             -- hps_io_uart0_inst_RX
 			hps_io_hps_io_uart0_inst_TX        : out   std_logic;                                        -- hps_io_uart0_inst_TX
 			hps_io_hps_io_gpio_inst_GPIO35     : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO35
-			key_external_connection_export     : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
 			memory_mem_a                       : out   std_logic_vector(14 downto 0);                    -- mem_a
 			memory_mem_ba                      : out   std_logic_vector(2 downto 0);                     -- mem_ba
 			memory_mem_ck                      : out   std_logic;                                        -- mem_ck
@@ -196,7 +195,11 @@ architecture rtl of pacman is
 			memory_mem_dqs_n                   : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- mem_dqs_n
 			memory_mem_odt                     : out   std_logic;                                        -- mem_odt
 			memory_mem_dm                      : out   std_logic_vector(3 downto 0);                     -- mem_dm
-			memory_oct_rzqin                   : in    std_logic                     := 'X'              -- oct_rzqin
+			memory_oct_rzqin                   : in    std_logic                     := 'X';              -- oct_rzqin
+			key1_external_connection_export    : in    std_logic                     := 'X';             -- export
+			key2_external_connection_export    : in    std_logic                     := 'X';             -- export
+			key3_external_connection_export    : in    std_logic                     := 'X';             -- export
+			key0_external_connection_export    : in    std_logic                     := 'X'              -- export
 		);
 	end component hps;
 	
@@ -267,7 +270,10 @@ u0 : component hps
 		de10_vga_raster_0_vga_r_export     => VGA_R,     --     de10_vga_raster_0_vga_r.export
 		de10_vga_raster_0_vga_vs_export    => VGA_VS,    --    de10_vga_raster_0_vga_vs.export
 		de10_vga_raster_0_vga_sync_export  => vga_sync,   --  de10_vga_raster_0_vga_sync.export
-		key_external_connection_export     => KEY (3 downto 0)                --     key_external_connection.export
+		key1_external_connection_export    => KEY(1),    --    key1_external_connection.export
+		key2_external_connection_export    => KEY(2),    --    key2_external_connection.export
+		key3_external_connection_export    => KEY(3),    --    key3_external_connection.export
+		key0_external_connection_export    => KEY(0)     --    key0_external_connection.export
 
 	);
 	

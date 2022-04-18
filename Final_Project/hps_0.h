@@ -31,28 +31,100 @@
 #define DE10_VGA_RASTER_0_END 0x1f
 
 /*
- * Macros for device 'key', class 'altera_avalon_pio'
- * The macros are prefixed with 'KEY_'.
+ * Macros for device 'key3', class 'altera_avalon_pio'
+ * The macros are prefixed with 'KEY3_'.
  * The prefix is the slave descriptor.
  */
-#define KEY_COMPONENT_TYPE altera_avalon_pio
-#define KEY_COMPONENT_NAME key
-#define KEY_BASE 0x20
-#define KEY_SPAN 16
-#define KEY_END 0x2f
-#define KEY_BIT_CLEARING_EDGE_REGISTER 0
-#define KEY_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define KEY_CAPTURE 0
-#define KEY_DATA_WIDTH 4
-#define KEY_DO_TEST_BENCH_WIRING 0
-#define KEY_DRIVEN_SIM_VALUE 0
-#define KEY_EDGE_TYPE NONE
-#define KEY_FREQ 50000000
-#define KEY_HAS_IN 1
-#define KEY_HAS_OUT 0
-#define KEY_HAS_TRI 0
-#define KEY_IRQ_TYPE NONE
-#define KEY_RESET_VALUE 0
+#define KEY3_COMPONENT_TYPE altera_avalon_pio
+#define KEY3_COMPONENT_NAME key3
+#define KEY3_BASE 0x20
+#define KEY3_SPAN 16
+#define KEY3_END 0x2f
+#define KEY3_BIT_CLEARING_EDGE_REGISTER 0
+#define KEY3_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define KEY3_CAPTURE 0
+#define KEY3_DATA_WIDTH 1
+#define KEY3_DO_TEST_BENCH_WIRING 0
+#define KEY3_DRIVEN_SIM_VALUE 0
+#define KEY3_EDGE_TYPE NONE
+#define KEY3_FREQ 50000000
+#define KEY3_HAS_IN 1
+#define KEY3_HAS_OUT 0
+#define KEY3_HAS_TRI 0
+#define KEY3_IRQ_TYPE NONE
+#define KEY3_RESET_VALUE 0
+
+/*
+ * Macros for device 'key2', class 'altera_avalon_pio'
+ * The macros are prefixed with 'KEY2_'.
+ * The prefix is the slave descriptor.
+ */
+#define KEY2_COMPONENT_TYPE altera_avalon_pio
+#define KEY2_COMPONENT_NAME key2
+#define KEY2_BASE 0x30
+#define KEY2_SPAN 16
+#define KEY2_END 0x3f
+#define KEY2_BIT_CLEARING_EDGE_REGISTER 0
+#define KEY2_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define KEY2_CAPTURE 0
+#define KEY2_DATA_WIDTH 1
+#define KEY2_DO_TEST_BENCH_WIRING 0
+#define KEY2_DRIVEN_SIM_VALUE 0
+#define KEY2_EDGE_TYPE NONE
+#define KEY2_FREQ 50000000
+#define KEY2_HAS_IN 1
+#define KEY2_HAS_OUT 0
+#define KEY2_HAS_TRI 0
+#define KEY2_IRQ_TYPE NONE
+#define KEY2_RESET_VALUE 0
+
+/*
+ * Macros for device 'key1', class 'altera_avalon_pio'
+ * The macros are prefixed with 'KEY1_'.
+ * The prefix is the slave descriptor.
+ */
+#define KEY1_COMPONENT_TYPE altera_avalon_pio
+#define KEY1_COMPONENT_NAME key1
+#define KEY1_BASE 0x40
+#define KEY1_SPAN 16
+#define KEY1_END 0x4f
+#define KEY1_BIT_CLEARING_EDGE_REGISTER 0
+#define KEY1_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define KEY1_CAPTURE 0
+#define KEY1_DATA_WIDTH 1
+#define KEY1_DO_TEST_BENCH_WIRING 0
+#define KEY1_DRIVEN_SIM_VALUE 0
+#define KEY1_EDGE_TYPE NONE
+#define KEY1_FREQ 50000000
+#define KEY1_HAS_IN 1
+#define KEY1_HAS_OUT 0
+#define KEY1_HAS_TRI 0
+#define KEY1_IRQ_TYPE NONE
+#define KEY1_RESET_VALUE 0
+
+/*
+ * Macros for device 'key0', class 'altera_avalon_pio'
+ * The macros are prefixed with 'KEY0_'.
+ * The prefix is the slave descriptor.
+ */
+#define KEY0_COMPONENT_TYPE altera_avalon_pio
+#define KEY0_COMPONENT_NAME key0
+#define KEY0_BASE 0x50
+#define KEY0_SPAN 16
+#define KEY0_END 0x5f
+#define KEY0_BIT_CLEARING_EDGE_REGISTER 0
+#define KEY0_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define KEY0_CAPTURE 0
+#define KEY0_DATA_WIDTH 1
+#define KEY0_DO_TEST_BENCH_WIRING 0
+#define KEY0_DRIVEN_SIM_VALUE 0
+#define KEY0_EDGE_TYPE NONE
+#define KEY0_FREQ 50000000
+#define KEY0_HAS_IN 1
+#define KEY0_HAS_OUT 0
+#define KEY0_HAS_TRI 0
+#define KEY0_IRQ_TYPE NONE
+#define KEY0_RESET_VALUE 0
 
 
 #endif /* _ALTERA_HPS_0_H_ */
