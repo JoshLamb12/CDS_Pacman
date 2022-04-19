@@ -638,6 +638,9 @@ set_global_assignment -name EDA_TEST_BENCH_NAME de10_vga_raster_tb -section_id e
 set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id de10_vga_raster_tb
 set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME de10_vga_raster_tb -section_id de10_vga_raster_tb
 set_global_assignment -name EDA_TEST_BENCH_FILE de10_vga_raster_tb.vhd -section_id de10_vga_raster_tb
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_global_assignment -name QSYS_FILE hps.qsys
 set_global_assignment -name VHDL_FILE map_vga8_640x480.vhd
 set_global_assignment -name SDC_FILE pacman.SDC
@@ -656,7 +659,4 @@ set_global_assignment -name VHDL_FILE pacmanclosed_vga8_25x25.vhd
 set_global_assignment -name VHDL_FILE de10_vga_raster.vhd
 set_global_assignment -name VHDL_FILE de10_vga_raster_tb.vhd
 set_global_assignment -name VHDL_FILE pacman.vhd
-set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
-set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
-set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

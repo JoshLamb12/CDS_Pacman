@@ -11,8 +11,8 @@
 
 #define VGA_BLANK 0
 
-// #define VGA_RDY_POS_map 22
-// #define VGA_RDX_POS_map 24
+#define VGA_RDY_POS_map 22
+#define VGA_RDX_POS_map 24
 
 #define VGA_RDY_POS_red 2
 #define VGA_RDX_POS_red 4
@@ -34,7 +34,7 @@
 // HTOTAL - HFRONT_PORCH
 #define RIGHT_EDGE 774
 // VTOTAL - VFRONT_PORCH - VACTIVE
-#define TOP_EDGE 35
+#define TOP_EDGE 30
 // VTOTAL - VFRONT_PORCH
 #define BOTTOM_EDGE 515
 
@@ -63,12 +63,6 @@ uint32_t *key3;
 int fd;
 
 void handler(int signo){
-	// *hex0=0;
-	// *hex1=0;
-	// *hex2=0;
-	// *hex3=0;
-	// *hex4=0;
-	// *hex5=0;
 	*key0 = 0x0; //up
 	*key1 = 0x0; //down
 	*key2 = 0x0; //right
@@ -153,22 +147,18 @@ int main(){
 	
 	for(;;){
 		usleep(5000);
-		
-		
-
-		
-
-			printf("%d", sprite_cycle);
-			printf("\n");
-			usleep(1000);
+	
+			// printf("%d", sprite_cycle);
+			// printf("\n");
+			// usleep(1000);
 		
 		while(!is_blank){
 			is_blank = *blank;
-			x_red = *readx_red;
-			y_red = *ready_red;
+			// x_red = *readx_red;
+			// y_red = *ready_red;
 
-			x_cyan = *readx_cyan;
-			y_cyan = *ready_cyan;
+			// x_cyan = *readx_cyan;
+			// y_cyan = *ready_cyan;
 
 			if((y_red < (TOP_EDGE+RADIUS)) | (y_red > (BOTTOM_EDGE-RADIUS))){
 				y_red = TOP_EDGE+RADIUS;
@@ -185,6 +175,7 @@ int main(){
 			}						
 			printf("Not blanked\n");
 		}
+
 		
 		//detail and handle boundary conditions
 		if((y_red < (TOP_EDGE+RADIUS)) | (y_red > (BOTTOM_EDGE-RADIUS))){
@@ -203,38 +194,67 @@ int main(){
 
 		//update x and y position 
 	
-		x_red = x_red + vx_red;
-		y_red = y_red + vy_red;
 
-		x_cyan = x_cyan + vx_cyan;
-		y_cyan = y_cyan + vy_cyan;
 
-		*writex_red = x_red;
+
+		if(*key0 == 0){
+		y_red = y_red + 1;
+
 		usleep(100);
-		*writey_red = y_red;
+		*writey_red = y_red;}
 
-		*writex_cyan = x_cyan;
+		if(*key1 == 0){
+		y_red = y_red - 1;
+
 		usleep(100);
-		*writey_cyan = y_cyan;
-	
+		*writey_red = y_red;}
+
+		if(*key2 == 0){
+		x_red = x_red + 1;
+
+		usleep(100);
+		*writex_red = x_red;}
+
+		if(*key3 == 0){
+		x_red = x_red - 1;
+
+		usleep(100);
+		*writex_red = x_red;}
+
+
+
+
+
+		// if(*key2 == 0){
+		// x_cyan = x_cyan + 1;
+		// y_cyan = y_cyan + 1;
+		// *writex_cyan = x_cyan;
+		// usleep(100);
+		// *writey_cyan = y_cyan;
+		// }
+
+		// if(*key3 == 0){
+		// x_cyan = x_cyan - 1;
+		// y_cyan = y_cyan - 1;
+		// *writex_cyan = x_cyan;
+		// usleep(100);
+		// *writey_cyan = y_cyan;
+		// }
 
 		// this will change the sprite based off of the which_spr 
 		// with/select condition written in vhdl (583)
-		
-		if(*key0 == 0){
-		if (scnt >= sprite_timer){
-			scnt = 0;
-			if (sprite_cycle == 1){
-				sprite_cycle = 2;
-			}else{
-				sprite_cycle = 1;
-			}			
-			
-		}
-			scnt++;
-			*sprite_select_red = sprite_cycle;
-			*sprite_select_cyan = sprite_cycle;
+			if (scnt >= sprite_timer){
+				scnt = 0;
+				if (sprite_cycle == 1){
+					sprite_cycle = 2;
+				}else{
+					sprite_cycle = 1;
+				}			
 			}
+				scnt++;
+				*sprite_select_red = sprite_cycle;
+				*sprite_select_cyan = sprite_cycle;
+		
 	}
 	
 }

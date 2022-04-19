@@ -159,7 +159,9 @@ architecture rtl of de10_vga_raster is
 	signal pink_ghost_sprite_x, pink_ghost_sprite_y : unsigned (9 downto 0) := "0011110000"; 
 	signal scared_ghost_sprite_x, scared_ghost_sprite_y  : unsigned (9 downto 0) := "0011110000"; 
 
-	signal map_sprite_x, map_sprite_y : unsigned (9 downto 0) := "0011110000"; 
+	signal map_sprite_x : unsigned (9 downto 0) := "1010000000";
+	signal map_sprite_y : unsigned (9 downto 0) := "0111100000";
+	
 
 	signal area_x, area_y, spr_area, spr_load  : std_logic := '0'; -- flags to control whether or not it's time to display our sprite
 	signal red_area, cyan_area, orange_area, pink_area, pacman_area, scared_area, map_area :std_logic := '0'; --sprite area checks
@@ -167,7 +169,7 @@ architecture rtl of de10_vga_raster is
 	signal map_x, map_y : std_logic := '0'; --map (x,y) checks
 
 	signal red_load, cyan_load, orange_load, pink_load, pacman_load, scared_load :std_logic := '0'; --load sprite signal, use to show sprites on video out
-	signal show_map : std_logic; --load map signal
+	signal show_map : std_logic := '1'; --load map signal
 
 	-- Sprite data interface
 	signal spr_address, red_address, cyan_address, orange_address, pink_address, pacman_address, scared_address : unsigned (9 downto 0) := (others => '0');
@@ -470,39 +472,36 @@ begin
 		end if;
 	end process VBlankGen;
 
-
-
-
-	Map_X_Check : process(clk_25)
-	begin
-		if rising_edge(clk_25) then
-			if reset = '1' or (Hcount >= (map_sprite_x) and Hcount < (map_sprite_x + maplen_x)) then
-				map_x <= '1';
-			else
-				map_x <= '0';
-			end if;
+	-- Map_X_Check : process(clk_25)
+	-- begin
+	-- 	if rising_edge(clk_25) then
+	-- 		if reset = '1' or (Hcount >= (map_sprite_x) and Hcount < (map_sprite_x + maplen_x)) then
+	-- 			map_x <= '1';
+	-- 		else
+	-- 			map_x <= '0';
+	-- 		end if;
 		
-		end if;
-	end process Map_X_Check;
+	-- 	end if;
+	-- end process Map_X_Check;
 	
-	Map_Y_Check : process(clk_25)
-	begin
-		if rising_edge(clk_25) then
-			if reset = '1' then
-				map_y <= '0'; -- changed from '1'
-			elsif EndOfLine = '1' then
-				if Vcount >= (map_sprite_y) and Vcount < (map_sprite_y + maplen_y) then
-					map_y <= '1';
-				else
-				map_y <= '0';
-				end if;
+	-- Map_Y_Check : process(clk_25)
+	-- begin
+	-- 	if rising_edge(clk_25) then
+	-- 		if reset = '1' then
+	-- 			map_y <= '0'; -- changed from '1'
+	-- 		elsif EndOfLine = '1' then
+	-- 			if Vcount >= (map_sprite_y) and Vcount < (map_sprite_y + maplen_y) then
+	-- 				map_y <= '1';
+	-- 			else
+	-- 			map_y <= '0';
+	-- 			end if;
 				
-			end if;
+	-- 		end if;
 		
-		end if;
-	end process Map_Y_Check;
+	-- 	end if;
+	-- end process Map_Y_Check;
 
-	map_area <= map_x and map_y;
+	-- map_area <= map_x and map_y;
 ---------------------------------------------------------------------------------------------------------------------------------
 
 	
@@ -608,22 +607,24 @@ begin
 	end process Cyan_Sprite_Load_Process;
 
 
-	Map_Load_Process : process (clk_25)
-	begin
-		if reset = '1' then
-			show_map <= '0';
-		else
-			if rising_edge(clk_25) then
-				if map_area = '1' then
-					show_map <= '1';
-				else
-				show_map <= '0';
-				end if;
-			end if;
-		end if;
-	end process Map_Load_Process;
+	-- Map_Load_Process : process (clk_25)
+	-- begin
+	-- 	if reset = '1' then
+	-- 		show_map <= '0';
+	-- 	else
+	-- 		if rising_edge(clk_25) then
+	-- 			if map_area = '1' then
+	-- 				show_map <= '1';
+	-- 			else
+	-- 			show_map <= '0';
+	-- 			end if;
+	-- 		end if;
+	-- 	end if;
+	-- end process Map_Load_Process;
 
-	map_result <= (Vcount-map_sprite_y-1)*maplen_y+(Hcount-map_sprite_x-1); -- minus 1 in horiz and vert deals with off-by-one behavior in valid area check;
+	
+	map_result <= (Vcount-1)+(Hcount-1)); -- minus 1 in horiz and vert deals with off-by-one behavior in valid area check;
+	--map_result <= (Vcount - Hcount - 1);
 	map_sprite_address <= map_result(18 downto 0);
 
 	red_result <= (Vcount-red_ghost_sprite_y-1)*sprlen_y+(Hcount-red_ghost_sprite_x-1); -- minus 1 in horiz and vert deals with off-by-one behavior in valid area check;
@@ -662,10 +663,10 @@ begin
 				VGA_R <= std_logic_vector(spr_data_cyan(23 downto 16));
 				VGA_G <= std_logic_vector(spr_data_cyan(15 downto 8));
 				VGA_B <= std_logic_vector(spr_data_cyan(7 downto 0));
-			elsif show_map = '1' and map_sprite_data(24) = '0' then
-				VGA_R <= std_logic_vector(map_sprite_data(23 downto 16));
-				VGA_G <= std_logic_vector(map_sprite_data(15 downto 8));
-				VGA_B <= std_logic_vector(map_sprite_data(7 downto 0));
+--			elsif show_map = '1' and map_sprite_data(24) = '0' then
+--				VGA_R <= std_logic_vector(map_sprite_data(23 downto 16));
+--				VGA_G <= std_logic_vector(map_sprite_data(15 downto 8));
+--				VGA_B <= std_logic_vector(map_sprite_data(7 downto 0));
 			elsif vga_hblank = '0' and vga_vblank = '0' then-- showmap
 				VGA_R <= std_logic_vector(map_sprite_data(23 downto 16));
 				VGA_G <= std_logic_vector(map_sprite_data(15 downto 8));
