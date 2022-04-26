@@ -52,7 +52,10 @@ entity hps is
 		hps_io_hps_io_uart0_inst_RX        : in    std_logic                     := '0';             --                            .hps_io_uart0_inst_RX
 		hps_io_hps_io_uart0_inst_TX        : out   std_logic;                                        --                            .hps_io_uart0_inst_TX
 		hps_io_hps_io_gpio_inst_GPIO35     : inout std_logic                     := '0';             --                            .hps_io_gpio_inst_GPIO35
-		key_external_connection_export     : in    std_logic_vector(3 downto 0)  := (others => '0'); --     key_external_connection.export
+		key0_external_connection_export    : in    std_logic                     := '0';             --    key0_external_connection.export
+		key1_external_connection_export    : in    std_logic                     := '0';             --    key1_external_connection.export
+		key2_external_connection_export    : in    std_logic                     := '0';             --    key2_external_connection.export
+		key3_external_connection_export    : in    std_logic                     := '0';             --    key3_external_connection.export
 		memory_mem_a                       : out   std_logic_vector(14 downto 0);                    --                      memory.mem_a
 		memory_mem_ba                      : out   std_logic_vector(2 downto 0);                     --                            .mem_ba
 		memory_mem_ck                      : out   std_logic;                                        --                            .mem_ck
@@ -80,7 +83,7 @@ architecture rtl of hps is
 			read       : in  std_logic                     := 'X';             -- read
 			write      : in  std_logic                     := 'X';             -- write
 			chipselect : in  std_logic                     := 'X';             -- chipselect
-			address    : in  std_logic_vector(3 downto 0)  := (others => 'X'); -- address
+			address    : in  std_logic_vector(4 downto 0)  := (others => 'X'); -- address
 			readdata   : out std_logic_vector(15 downto 0);                    -- readdata
 			writedata  : in  std_logic_vector(15 downto 0) := (others => 'X'); -- writedata
 			VGA_B      : out std_logic_vector(7 downto 0);                     -- export
@@ -192,15 +195,15 @@ architecture rtl of hps is
 		);
 	end component hps_hps_0;
 
-	component hps_key is
+	component hps_key0 is
 		port (
 			clk      : in  std_logic                     := 'X';             -- clk
 			reset_n  : in  std_logic                     := 'X';             -- reset_n
 			address  : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- address
 			readdata : out std_logic_vector(31 downto 0);                    -- readdata
-			in_port  : in  std_logic_vector(3 downto 0)  := (others => 'X')  -- export
+			in_port  : in  std_logic                     := 'X'              -- export
 		);
-	end component hps_key;
+	end component hps_key0;
 
 	component hps_mm_interconnect_0 is
 		port (
@@ -243,14 +246,20 @@ architecture rtl of hps is
 			clk_0_clk_clk                                                       : in  std_logic                     := 'X';             -- clk
 			de10_vga_raster_0_reset_reset_bridge_in_reset_reset                 : in  std_logic                     := 'X';             -- reset
 			hps_0_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset_reset : in  std_logic                     := 'X';             -- reset
-			de10_vga_raster_0_avalon_slave_0_address                            : out std_logic_vector(3 downto 0);                     -- address
+			de10_vga_raster_0_avalon_slave_0_address                            : out std_logic_vector(4 downto 0);                     -- address
 			de10_vga_raster_0_avalon_slave_0_write                              : out std_logic;                                        -- write
 			de10_vga_raster_0_avalon_slave_0_read                               : out std_logic;                                        -- read
 			de10_vga_raster_0_avalon_slave_0_readdata                           : in  std_logic_vector(15 downto 0) := (others => 'X'); -- readdata
 			de10_vga_raster_0_avalon_slave_0_writedata                          : out std_logic_vector(15 downto 0);                    -- writedata
 			de10_vga_raster_0_avalon_slave_0_chipselect                         : out std_logic;                                        -- chipselect
-			key_s1_address                                                      : out std_logic_vector(1 downto 0);                     -- address
-			key_s1_readdata                                                     : in  std_logic_vector(31 downto 0) := (others => 'X')  -- readdata
+			key0_s1_address                                                     : out std_logic_vector(1 downto 0);                     -- address
+			key0_s1_readdata                                                    : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			key1_s1_address                                                     : out std_logic_vector(1 downto 0);                     -- address
+			key1_s1_readdata                                                    : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			key2_s1_address                                                     : out std_logic_vector(1 downto 0);                     -- address
+			key2_s1_readdata                                                    : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			key3_s1_address                                                     : out std_logic_vector(1 downto 0);                     -- address
+			key3_s1_readdata                                                    : in  std_logic_vector(31 downto 0) := (others => 'X')  -- readdata
 		);
 	end component hps_mm_interconnect_0;
 
@@ -359,16 +368,22 @@ architecture rtl of hps is
 	signal hps_0_h2f_lw_axi_master_rvalid                                : std_logic;                     -- mm_interconnect_0:hps_0_h2f_lw_axi_master_rvalid -> hps_0:h2f_lw_RVALID
 	signal mm_interconnect_0_de10_vga_raster_0_avalon_slave_0_chipselect : std_logic;                     -- mm_interconnect_0:de10_vga_raster_0_avalon_slave_0_chipselect -> de10_vga_raster_0:chipselect
 	signal mm_interconnect_0_de10_vga_raster_0_avalon_slave_0_readdata   : std_logic_vector(15 downto 0); -- de10_vga_raster_0:readdata -> mm_interconnect_0:de10_vga_raster_0_avalon_slave_0_readdata
-	signal mm_interconnect_0_de10_vga_raster_0_avalon_slave_0_address    : std_logic_vector(3 downto 0);  -- mm_interconnect_0:de10_vga_raster_0_avalon_slave_0_address -> de10_vga_raster_0:address
+	signal mm_interconnect_0_de10_vga_raster_0_avalon_slave_0_address    : std_logic_vector(4 downto 0);  -- mm_interconnect_0:de10_vga_raster_0_avalon_slave_0_address -> de10_vga_raster_0:address
 	signal mm_interconnect_0_de10_vga_raster_0_avalon_slave_0_read       : std_logic;                     -- mm_interconnect_0:de10_vga_raster_0_avalon_slave_0_read -> de10_vga_raster_0:read
 	signal mm_interconnect_0_de10_vga_raster_0_avalon_slave_0_write      : std_logic;                     -- mm_interconnect_0:de10_vga_raster_0_avalon_slave_0_write -> de10_vga_raster_0:write
 	signal mm_interconnect_0_de10_vga_raster_0_avalon_slave_0_writedata  : std_logic_vector(15 downto 0); -- mm_interconnect_0:de10_vga_raster_0_avalon_slave_0_writedata -> de10_vga_raster_0:writedata
-	signal mm_interconnect_0_key_s1_readdata                             : std_logic_vector(31 downto 0); -- key:readdata -> mm_interconnect_0:key_s1_readdata
-	signal mm_interconnect_0_key_s1_address                              : std_logic_vector(1 downto 0);  -- mm_interconnect_0:key_s1_address -> key:address
+	signal mm_interconnect_0_key0_s1_readdata                            : std_logic_vector(31 downto 0); -- key0:readdata -> mm_interconnect_0:key0_s1_readdata
+	signal mm_interconnect_0_key0_s1_address                             : std_logic_vector(1 downto 0);  -- mm_interconnect_0:key0_s1_address -> key0:address
+	signal mm_interconnect_0_key1_s1_readdata                            : std_logic_vector(31 downto 0); -- key1:readdata -> mm_interconnect_0:key1_s1_readdata
+	signal mm_interconnect_0_key1_s1_address                             : std_logic_vector(1 downto 0);  -- mm_interconnect_0:key1_s1_address -> key1:address
+	signal mm_interconnect_0_key2_s1_readdata                            : std_logic_vector(31 downto 0); -- key2:readdata -> mm_interconnect_0:key2_s1_readdata
+	signal mm_interconnect_0_key2_s1_address                             : std_logic_vector(1 downto 0);  -- mm_interconnect_0:key2_s1_address -> key2:address
+	signal mm_interconnect_0_key3_s1_readdata                            : std_logic_vector(31 downto 0); -- key3:readdata -> mm_interconnect_0:key3_s1_readdata
+	signal mm_interconnect_0_key3_s1_address                             : std_logic_vector(1 downto 0);  -- mm_interconnect_0:key3_s1_address -> key3:address
 	signal rst_controller_reset_out_reset                                : std_logic;                     -- rst_controller:reset_out -> [de10_vga_raster_0:reset, mm_interconnect_0:de10_vga_raster_0_reset_reset_bridge_in_reset_reset, rst_controller_reset_out_reset:in]
 	signal rst_controller_001_reset_out_reset                            : std_logic;                     -- rst_controller_001:reset_out -> mm_interconnect_0:hps_0_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset_reset
 	signal hps_0_h2f_reset_reset_ports_inv                               : std_logic;                     -- hps_0_h2f_reset_reset:inv -> [rst_controller:reset_in0, rst_controller_001:reset_in0]
-	signal rst_controller_reset_out_reset_ports_inv                      : std_logic;                     -- rst_controller_reset_out_reset:inv -> key:reset_n
+	signal rst_controller_reset_out_reset_ports_inv                      : std_logic;                     -- rst_controller_reset_out_reset:inv -> [key0:reset_n, key1:reset_n, key2:reset_n, key3:reset_n]
 
 begin
 
@@ -489,13 +504,40 @@ begin
 			h2f_lw_RREADY            => hps_0_h2f_lw_axi_master_rready   --                  .rready
 		);
 
-	key : component hps_key
+	key0 : component hps_key0
 		port map (
 			clk      => clk_clk,                                  --                 clk.clk
 			reset_n  => rst_controller_reset_out_reset_ports_inv, --               reset.reset_n
-			address  => mm_interconnect_0_key_s1_address,         --                  s1.address
-			readdata => mm_interconnect_0_key_s1_readdata,        --                    .readdata
-			in_port  => key_external_connection_export            -- external_connection.export
+			address  => mm_interconnect_0_key0_s1_address,        --                  s1.address
+			readdata => mm_interconnect_0_key0_s1_readdata,       --                    .readdata
+			in_port  => key0_external_connection_export           -- external_connection.export
+		);
+
+	key1 : component hps_key0
+		port map (
+			clk      => clk_clk,                                  --                 clk.clk
+			reset_n  => rst_controller_reset_out_reset_ports_inv, --               reset.reset_n
+			address  => mm_interconnect_0_key1_s1_address,        --                  s1.address
+			readdata => mm_interconnect_0_key1_s1_readdata,       --                    .readdata
+			in_port  => key1_external_connection_export           -- external_connection.export
+		);
+
+	key2 : component hps_key0
+		port map (
+			clk      => clk_clk,                                  --                 clk.clk
+			reset_n  => rst_controller_reset_out_reset_ports_inv, --               reset.reset_n
+			address  => mm_interconnect_0_key2_s1_address,        --                  s1.address
+			readdata => mm_interconnect_0_key2_s1_readdata,       --                    .readdata
+			in_port  => key2_external_connection_export           -- external_connection.export
+		);
+
+	key3 : component hps_key0
+		port map (
+			clk      => clk_clk,                                  --                 clk.clk
+			reset_n  => rst_controller_reset_out_reset_ports_inv, --               reset.reset_n
+			address  => mm_interconnect_0_key3_s1_address,        --                  s1.address
+			readdata => mm_interconnect_0_key3_s1_readdata,       --                    .readdata
+			in_port  => key3_external_connection_export           -- external_connection.export
 		);
 
 	mm_interconnect_0 : component hps_mm_interconnect_0
@@ -545,8 +587,14 @@ begin
 			de10_vga_raster_0_avalon_slave_0_readdata                           => mm_interconnect_0_de10_vga_raster_0_avalon_slave_0_readdata,   --                                                              .readdata
 			de10_vga_raster_0_avalon_slave_0_writedata                          => mm_interconnect_0_de10_vga_raster_0_avalon_slave_0_writedata,  --                                                              .writedata
 			de10_vga_raster_0_avalon_slave_0_chipselect                         => mm_interconnect_0_de10_vga_raster_0_avalon_slave_0_chipselect, --                                                              .chipselect
-			key_s1_address                                                      => mm_interconnect_0_key_s1_address,                              --                                                        key_s1.address
-			key_s1_readdata                                                     => mm_interconnect_0_key_s1_readdata                              --                                                              .readdata
+			key0_s1_address                                                     => mm_interconnect_0_key0_s1_address,                             --                                                       key0_s1.address
+			key0_s1_readdata                                                    => mm_interconnect_0_key0_s1_readdata,                            --                                                              .readdata
+			key1_s1_address                                                     => mm_interconnect_0_key1_s1_address,                             --                                                       key1_s1.address
+			key1_s1_readdata                                                    => mm_interconnect_0_key1_s1_readdata,                            --                                                              .readdata
+			key2_s1_address                                                     => mm_interconnect_0_key2_s1_address,                             --                                                       key2_s1.address
+			key2_s1_readdata                                                    => mm_interconnect_0_key2_s1_readdata,                            --                                                              .readdata
+			key3_s1_address                                                     => mm_interconnect_0_key3_s1_address,                             --                                                       key3_s1.address
+			key3_s1_readdata                                                    => mm_interconnect_0_key3_s1_readdata                             --                                                              .readdata
 		);
 
 	rst_controller : component altera_reset_controller

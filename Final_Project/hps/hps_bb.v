@@ -44,7 +44,10 @@ module hps (
 	hps_io_hps_io_uart0_inst_RX,
 	hps_io_hps_io_uart0_inst_TX,
 	hps_io_hps_io_gpio_inst_GPIO35,
-	key_external_connection_export,
+	key0_external_connection_export,
+	key1_external_connection_export,
+	key2_external_connection_export,
+	key3_external_connection_export,
 	memory_mem_a,
 	memory_mem_ba,
 	memory_mem_ck,
@@ -106,7 +109,10 @@ module hps (
 	input		hps_io_hps_io_uart0_inst_RX;
 	output		hps_io_hps_io_uart0_inst_TX;
 	inout		hps_io_hps_io_gpio_inst_GPIO35;
-	input	[3:0]	key_external_connection_export;
+	input		key0_external_connection_export;
+	input		key1_external_connection_export;
+	input		key2_external_connection_export;
+	input		key3_external_connection_export;
 	output	[14:0]	memory_mem_a;
 	output	[2:0]	memory_mem_ba;
 	output		memory_mem_ck;

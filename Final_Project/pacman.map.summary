@@ -1,14 +1,14 @@
-Analysis & Synthesis Status : Successful - Mon Apr 11 17:47:44 2022
+Analysis & Synthesis Status : Successful - Mon Apr 25 18:08:04 2022
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : pacman
 Top-level Entity Name : pacman
 Family : Cyclone V
 Logic utilization (in ALMs) : N/A
-Total registers : 738
-Total pins : 190
+Total registers : 1163
+Total pins : 180
 Total virtual pins : 0
-Total block memory bits : 0
-Total DSP Blocks : 1
+Total block memory bits : 8,192
+Total DSP Blocks : 5
 Total HSSI RX PCSs : 0
 Total HSSI PMA RX Deserializers : 0
 Total HSSI TX PCSs : 0

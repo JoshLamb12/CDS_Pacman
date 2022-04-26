@@ -48,7 +48,10 @@ module hps (
 		input  wire        hps_io_hps_io_uart0_inst_RX,        //                            .hps_io_uart0_inst_RX
 		output wire        hps_io_hps_io_uart0_inst_TX,        //                            .hps_io_uart0_inst_TX
 		inout  wire        hps_io_hps_io_gpio_inst_GPIO35,     //                            .hps_io_gpio_inst_GPIO35
-		input  wire [3:0]  key_external_connection_export,     //     key_external_connection.export
+		input  wire        key0_external_connection_export,    //    key0_external_connection.export
+		input  wire        key1_external_connection_export,    //    key1_external_connection.export
+		input  wire        key2_external_connection_export,    //    key2_external_connection.export
+		input  wire        key3_external_connection_export,    //    key3_external_connection.export
 		output wire [14:0] memory_mem_a,                       //                      memory.mem_a
 		output wire [2:0]  memory_mem_ba,                      //                            .mem_ba
 		output wire        memory_mem_ck,                      //                            .mem_ck
@@ -106,13 +109,19 @@ module hps (
 	wire         hps_0_h2f_lw_axi_master_rvalid;                                // mm_interconnect_0:hps_0_h2f_lw_axi_master_rvalid -> hps_0:h2f_lw_RVALID
 	wire         mm_interconnect_0_de10_vga_raster_0_avalon_slave_0_chipselect; // mm_interconnect_0:de10_vga_raster_0_avalon_slave_0_chipselect -> de10_vga_raster_0:chipselect
 	wire  [15:0] mm_interconnect_0_de10_vga_raster_0_avalon_slave_0_readdata;   // de10_vga_raster_0:readdata -> mm_interconnect_0:de10_vga_raster_0_avalon_slave_0_readdata
-	wire   [3:0] mm_interconnect_0_de10_vga_raster_0_avalon_slave_0_address;    // mm_interconnect_0:de10_vga_raster_0_avalon_slave_0_address -> de10_vga_raster_0:address
+	wire   [4:0] mm_interconnect_0_de10_vga_raster_0_avalon_slave_0_address;    // mm_interconnect_0:de10_vga_raster_0_avalon_slave_0_address -> de10_vga_raster_0:address
 	wire         mm_interconnect_0_de10_vga_raster_0_avalon_slave_0_read;       // mm_interconnect_0:de10_vga_raster_0_avalon_slave_0_read -> de10_vga_raster_0:read
 	wire         mm_interconnect_0_de10_vga_raster_0_avalon_slave_0_write;      // mm_interconnect_0:de10_vga_raster_0_avalon_slave_0_write -> de10_vga_raster_0:write
 	wire  [15:0] mm_interconnect_0_de10_vga_raster_0_avalon_slave_0_writedata;  // mm_interconnect_0:de10_vga_raster_0_avalon_slave_0_writedata -> de10_vga_raster_0:writedata
-	wire  [31:0] mm_interconnect_0_key_s1_readdata;                             // key:readdata -> mm_interconnect_0:key_s1_readdata
-	wire   [1:0] mm_interconnect_0_key_s1_address;                              // mm_interconnect_0:key_s1_address -> key:address
-	wire         rst_controller_reset_out_reset;                                // rst_controller:reset_out -> [de10_vga_raster_0:reset, key:reset_n, mm_interconnect_0:de10_vga_raster_0_reset_reset_bridge_in_reset_reset]
+	wire  [31:0] mm_interconnect_0_key0_s1_readdata;                            // key0:readdata -> mm_interconnect_0:key0_s1_readdata
+	wire   [1:0] mm_interconnect_0_key0_s1_address;                             // mm_interconnect_0:key0_s1_address -> key0:address
+	wire  [31:0] mm_interconnect_0_key1_s1_readdata;                            // key1:readdata -> mm_interconnect_0:key1_s1_readdata
+	wire   [1:0] mm_interconnect_0_key1_s1_address;                             // mm_interconnect_0:key1_s1_address -> key1:address
+	wire  [31:0] mm_interconnect_0_key2_s1_readdata;                            // key2:readdata -> mm_interconnect_0:key2_s1_readdata
+	wire   [1:0] mm_interconnect_0_key2_s1_address;                             // mm_interconnect_0:key2_s1_address -> key2:address
+	wire  [31:0] mm_interconnect_0_key3_s1_readdata;                            // key3:readdata -> mm_interconnect_0:key3_s1_readdata
+	wire   [1:0] mm_interconnect_0_key3_s1_address;                             // mm_interconnect_0:key3_s1_address -> key3:address
+	wire         rst_controller_reset_out_reset;                                // rst_controller:reset_out -> [de10_vga_raster_0:reset, key0:reset_n, key1:reset_n, key2:reset_n, key3:reset_n, mm_interconnect_0:de10_vga_raster_0_reset_reset_bridge_in_reset_reset]
 	wire         rst_controller_001_reset_out_reset;                            // rst_controller_001:reset_out -> mm_interconnect_0:hps_0_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset_reset
 
 	de10_vga_raster de10_vga_raster_0 (
@@ -229,12 +238,36 @@ module hps (
 		.h2f_lw_RREADY            (hps_0_h2f_lw_axi_master_rready)   //                  .rready
 	);
 
-	hps_key key (
-		.clk      (clk_clk),                           //                 clk.clk
-		.reset_n  (~rst_controller_reset_out_reset),   //               reset.reset_n
-		.address  (mm_interconnect_0_key_s1_address),  //                  s1.address
-		.readdata (mm_interconnect_0_key_s1_readdata), //                    .readdata
-		.in_port  (key_external_connection_export)     // external_connection.export
+	hps_key0 key0 (
+		.clk      (clk_clk),                            //                 clk.clk
+		.reset_n  (~rst_controller_reset_out_reset),    //               reset.reset_n
+		.address  (mm_interconnect_0_key0_s1_address),  //                  s1.address
+		.readdata (mm_interconnect_0_key0_s1_readdata), //                    .readdata
+		.in_port  (key0_external_connection_export)     // external_connection.export
+	);
+
+	hps_key0 key1 (
+		.clk      (clk_clk),                            //                 clk.clk
+		.reset_n  (~rst_controller_reset_out_reset),    //               reset.reset_n
+		.address  (mm_interconnect_0_key1_s1_address),  //                  s1.address
+		.readdata (mm_interconnect_0_key1_s1_readdata), //                    .readdata
+		.in_port  (key1_external_connection_export)     // external_connection.export
+	);
+
+	hps_key0 key2 (
+		.clk      (clk_clk),                            //                 clk.clk
+		.reset_n  (~rst_controller_reset_out_reset),    //               reset.reset_n
+		.address  (mm_interconnect_0_key2_s1_address),  //                  s1.address
+		.readdata (mm_interconnect_0_key2_s1_readdata), //                    .readdata
+		.in_port  (key2_external_connection_export)     // external_connection.export
+	);
+
+	hps_key0 key3 (
+		.clk      (clk_clk),                            //                 clk.clk
+		.reset_n  (~rst_controller_reset_out_reset),    //               reset.reset_n
+		.address  (mm_interconnect_0_key3_s1_address),  //                  s1.address
+		.readdata (mm_interconnect_0_key3_s1_readdata), //                    .readdata
+		.in_port  (key3_external_connection_export)     // external_connection.export
 	);
 
 	hps_mm_interconnect_0 mm_interconnect_0 (
@@ -283,8 +316,14 @@ module hps (
 		.de10_vga_raster_0_avalon_slave_0_readdata                           (mm_interconnect_0_de10_vga_raster_0_avalon_slave_0_readdata),   //                                                              .readdata
 		.de10_vga_raster_0_avalon_slave_0_writedata                          (mm_interconnect_0_de10_vga_raster_0_avalon_slave_0_writedata),  //                                                              .writedata
 		.de10_vga_raster_0_avalon_slave_0_chipselect                         (mm_interconnect_0_de10_vga_raster_0_avalon_slave_0_chipselect), //                                                              .chipselect
-		.key_s1_address                                                      (mm_interconnect_0_key_s1_address),                              //                                                        key_s1.address
-		.key_s1_readdata                                                     (mm_interconnect_0_key_s1_readdata)                              //                                                              .readdata
+		.key0_s1_address                                                     (mm_interconnect_0_key0_s1_address),                             //                                                       key0_s1.address
+		.key0_s1_readdata                                                    (mm_interconnect_0_key0_s1_readdata),                            //                                                              .readdata
+		.key1_s1_address                                                     (mm_interconnect_0_key1_s1_address),                             //                                                       key1_s1.address
+		.key1_s1_readdata                                                    (mm_interconnect_0_key1_s1_readdata),                            //                                                              .readdata
+		.key2_s1_address                                                     (mm_interconnect_0_key2_s1_address),                             //                                                       key2_s1.address
+		.key2_s1_readdata                                                    (mm_interconnect_0_key2_s1_readdata),                            //                                                              .readdata
+		.key3_s1_address                                                     (mm_interconnect_0_key3_s1_address),                             //                                                       key3_s1.address
+		.key3_s1_readdata                                                    (mm_interconnect_0_key3_s1_readdata)                             //                                                              .readdata
 	);
 
 	altera_reset_controller #(

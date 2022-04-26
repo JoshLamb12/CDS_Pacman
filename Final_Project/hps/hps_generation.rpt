@@ -8,8 +8,14 @@ Progress: Adding de10_vga_raster_0 [de10_vga_raster 1.2]
 Progress: Parameterizing module de10_vga_raster_0
 Progress: Adding hps_0 [altera_hps 18.1]
 Progress: Parameterizing module hps_0
-Progress: Adding key [altera_avalon_pio 18.1]
-Progress: Parameterizing module key
+Progress: Adding key0 [altera_avalon_pio 18.1]
+Progress: Parameterizing module key0
+Progress: Adding key1 [altera_avalon_pio 18.1]
+Progress: Parameterizing module key1
+Progress: Adding key2 [altera_avalon_pio 18.1]
+Progress: Parameterizing module key2
+Progress: Adding key3 [altera_avalon_pio 18.1]
+Progress: Parameterizing module key3
 Progress: Building connections
 Progress: Parameterizing connections
 Progress: Validating
@@ -18,7 +24,10 @@ Info: hps.hps_0: HPS Main PLL counter settings: n = 0  m = 73
 Info: hps.hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
 Warning: hps.hps_0: "Configuration/HPS-to-FPGA user 0 clock frequency" (desired_cfg_clk_mhz) requested 100.0 MHz, but only achieved 97.368421 MHz
 Warning: hps.hps_0: 1 or more output clock frequencies cannot be achieved precisely, consider revising desired output clock frequencies.
-Info: hps.key: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: hps.key0: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: hps.key1: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: hps.key2: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: hps.key3: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
 Info: qsys-generate succeeded.
 Info: Finished: Create block symbol file (.bsf)
 Info: 
@@ -32,8 +41,14 @@ Progress: Adding de10_vga_raster_0 [de10_vga_raster 1.2]
 Progress: Parameterizing module de10_vga_raster_0
 Progress: Adding hps_0 [altera_hps 18.1]
 Progress: Parameterizing module hps_0
-Progress: Adding key [altera_avalon_pio 18.1]
-Progress: Parameterizing module key
+Progress: Adding key0 [altera_avalon_pio 18.1]
+Progress: Parameterizing module key0
+Progress: Adding key1 [altera_avalon_pio 18.1]
+Progress: Parameterizing module key1
+Progress: Adding key2 [altera_avalon_pio 18.1]
+Progress: Parameterizing module key2
+Progress: Adding key3 [altera_avalon_pio 18.1]
+Progress: Parameterizing module key3
 Progress: Building connections
 Progress: Parameterizing connections
 Progress: Validating
@@ -42,7 +57,10 @@ Info: hps.hps_0: HPS Main PLL counter settings: n = 0  m = 73
 Info: hps.hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
 Warning: hps.hps_0: "Configuration/HPS-to-FPGA user 0 clock frequency" (desired_cfg_clk_mhz) requested 100.0 MHz, but only achieved 97.368421 MHz
 Warning: hps.hps_0: 1 or more output clock frequencies cannot be achieved precisely, consider revising desired output clock frequencies.
-Info: hps.key: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: hps.key0: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: hps.key1: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: hps.key2: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: hps.key3: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
 Info: hps: Generating hps "hps" for QUARTUS_SYNTH
 Info: de10_vga_raster_0: "hps" instantiated de10_vga_raster "de10_vga_raster_0"
 Info: hps_0: "Running  for module: hps_0"
@@ -51,12 +69,15 @@ Info: hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
 Warning: hps_0: "Configuration/HPS-to-FPGA user 0 clock frequency" (desired_cfg_clk_mhz) requested 100.0 MHz, but only achieved 97.368421 MHz
 Warning: hps_0: 1 or more output clock frequencies cannot be achieved precisely, consider revising desired output clock frequencies.
 Info: hps_0: "hps" instantiated altera_hps "hps_0"
-Info: key: Starting RTL generation for module 'hps_key'
-Info: key:   Generation command is [exec C:/intelfpga_lite/18.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/18.1/quartus/bin64/perl/lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=hps_key --dir=C:/Users/Jonathan/AppData/Local/Temp/alt9093_8565853584595827099.dir/0005_key_gen/ --quartus_dir=C:/intelfpga_lite/18.1/quartus --verilog --config=C:/Users/Jonathan/AppData/Local/Temp/alt9093_8565853584595827099.dir/0005_key_gen//hps_key_component_configuration.pl  --do_build_sim=0  ]
-Info: key: Done RTL generation for module 'hps_key'
-Info: key: "hps" instantiated altera_avalon_pio "key"
+Info: key0: Starting RTL generation for module 'hps_key0'
+Info: key0:   Generation command is [exec C:/intelfpga_lite/18.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/18.1/quartus/bin64/perl/lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=hps_key0 --dir=C:/Users/Jonathan/AppData/Local/Temp/alt9107_1904016676591442681.dir/0004_key0_gen/ --quartus_dir=C:/intelfpga_lite/18.1/quartus --verilog --config=C:/Users/Jonathan/AppData/Local/Temp/alt9107_1904016676591442681.dir/0004_key0_gen//hps_key0_component_configuration.pl  --do_build_sim=0  ]
+Info: key0: Done RTL generation for module 'hps_key0'
+Info: key0: "hps" instantiated altera_avalon_pio "key0"
 Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
 Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_002: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_003: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_004: Inserting error_adapter: error_adapter_0
 Info: mm_interconnect_0: "hps" instantiated altera_mm_interconnect "mm_interconnect_0"
 Info: rst_controller: "hps" instantiated altera_reset_controller "rst_controller"
 Info: fpga_interfaces: "hps_0" instantiated altera_interface_generator "fpga_interfaces"
