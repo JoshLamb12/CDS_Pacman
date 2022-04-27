@@ -99,6 +99,7 @@ uint32_t *key2;
 uint32_t *key3;
 
 int fd;
+int p[4] = {4,4,4,4};
 
 void handler(int signo){
 	*key0 = 0x0; //up
@@ -237,7 +238,7 @@ int main(){
 	*key1 = 0x1; //down
 	*key2 = 0x1; //right
 	*key3 = 0x1; //left
-	int p = 1;
+	//int p = 1;
 	
 	for(;;){
 		usleep(5000);
@@ -330,77 +331,223 @@ int main(){
 		// usleep(100);
 		// *writey_red = y_red;
 
-	// if (ghost_time % 10 == 9) {
-
-	// 	int p = randomfunc();
-	// 	int dir_int = p;
-    // }
-	int p = randomfunc();
 	
-	if(p == 1){
+	p[0] = randomfunc(0);
+	p[1] = randomfunc(1);
+	p[2] = randomfunc(2);
+	p[3] = randomfunc(3);
+	
+
+	//red ghost movement
+	if(p[0] == 1){
 		if(y_red > (TOP_EDGE+RADIUS)){
 			y_red = y_red - 1;
 			usleep(100);
 			*writey_red = y_red;
 		}
 		else{
-			p = 2;
+			p[0] = 2;
 		}
 	}
 	
-    if(p == 2){
+    if(p[0] == 2){
 		if(y_red < (BOTTOM_EDGE-RADIUS)){
         	y_red = y_red + 1;
 			usleep(100);
 			*writey_red = y_red;
 		}
 		else {
-			p = 1;
+			p[0] = 1;
 		}
 	}
 
 	
-    if(p == 3){
+    if(p[0] == 3){
 		if(x_red != (RIGHT_EDGE-RADIUS)){
 			x_red = x_red + 1;
 			usleep(100);
 			*writex_red = x_red;
 			}
 		else {
-			p = 4;
+			p[0] = 4;
 		}	
 	}
-	if(p == 4){	
+	
+
+	
+	if(p[0] == 4){	
 		if(x_red != (LEFT_EDGE+RADIUS)) {   
        	 	x_red = x_red - 1;
 			usleep(100);
 			*writex_red = x_red;
 		}
 		else {
-			p = 3;
+			p[0] = 3;
 		}
 	}
-		//update x and y position of cyan ghost
-		x_cyan = x_cyan + vx_cyan;
-		y_cyan = y_cyan + vy_cyan;
-		usleep(100);
-		*writex_cyan = x_cyan; 
-		usleep(100);
-		*writey_cyan = y_cyan;
-		//update x and y position of orange ghost
-		x_orange = x_orange + vx_orange;
-		y_orange = y_orange + vy_orange;
-		usleep(100);
-		*writex_orange = x_orange;
-		usleep(100);
-		*writey_orange = y_orange;
-		//update x and y position of pink ghost
-		x_pink = x_pink + vx_pink;
-		y_pink = y_pink + vy_pink;
-		usleep(100);
-		*writex_pink = x_pink;
-		usleep(100);
-		*writey_pink = y_pink;
+
+	
+	//cyan ghost movement
+	if(p[1] == 1){
+		if(y_cyan > (TOP_EDGE+RADIUS)){
+			y_cyan = y_cyan - 1;
+			usleep(100);
+			*writey_cyan = y_cyan;
+		}
+			else{
+			p[1] = 2;
+		}
+	}
+	
+    if(p[1] == 2){
+		if(y_cyan < (BOTTOM_EDGE-RADIUS)){
+        	y_cyan = y_cyan + 1;
+			usleep(100);
+			*writey_cyan = y_cyan;
+		}
+		else {
+			p[1] = 1;
+		}
+	}
+
+	
+    if(p[1] == 3){
+		if(x_cyan != (RIGHT_EDGE-RADIUS)){
+			x_cyan = x_cyan + 1;
+			usleep(100);
+			*writex_cyan = x_cyan;
+			}
+		else {
+			p[1] = 4;
+		}	
+	}
+	if(p[1] == 4){	
+		if(x_cyan != (LEFT_EDGE+RADIUS)) {   
+       	 	x_cyan = x_cyan - 1;
+			usleep(100);
+			*writex_cyan = x_red;
+		}
+		else {
+			p[1] = 3;
+		}
+	}
+
+//orange ghost movement
+
+
+if(p[2] == 1){
+		if(y_orange > (TOP_EDGE+RADIUS)){
+			y_orange = y_orange - 1;
+			usleep(100);
+			*writey_orange = y_orange;
+		}
+			else{
+			p[2] = 2;
+		}
+	}
+	
+    if(p[2] == 2){
+		if(y_orange < (BOTTOM_EDGE-RADIUS)){
+        	y_orange = y_orange + 1;
+			usleep(100);
+			*writey_orange = y_orange;
+		}
+		else {
+			p[2] = 1;
+		}
+	}
+
+	
+    if(p[2] == 3){
+		if(x_orange != (RIGHT_EDGE-RADIUS)){
+			x_orange = x_orange + 1;
+			usleep(100);
+			*writex_orange = x_orange;
+			}
+		else {
+			p[2] = 4;
+		}	
+	}
+	if(p[2] == 4){	
+		if(x_orange != (LEFT_EDGE+RADIUS)) {   
+       	 	x_orange = x_orange - 1;
+			usleep(100);
+			*writex_orange = x_red;
+		}
+		else {
+			p[2] = 3;
+		}
+	}
+
+	//pink ghost movement
+
+	if(p[3] == 1){
+		if(y_pink > (TOP_EDGE+RADIUS)){
+			y_pink = y_pink - 1;
+			usleep(100);
+			*writey_pink = y_pink;
+		}
+			else{
+			p[3] = 2;
+		}
+	}
+	
+    if(p[3] == 2){
+		if(y_pink < (BOTTOM_EDGE-RADIUS)){
+        	y_pink = y_pink + 1;
+			usleep(100);
+			*writey_pink = y_pink;
+		}
+		else {
+			p[3] = 1;
+		}
+	}
+
+	
+    if(p[3] == 3){
+		if(x_pink != (RIGHT_EDGE-RADIUS)){
+			x_pink = x_pink + 1;
+			usleep(100);
+			*writex_pink = x_pink;
+			}
+		else {
+			p[3] = 4;
+		}	
+	}
+	if(p[3] == 4){	
+		if(x_pink != (LEFT_EDGE+RADIUS)) {   
+       	 	x_pink = x_pink - 1;
+			usleep(100);
+			*writex_pink = x_red;
+		}
+		else {
+			p[3] = 3;
+		}
+	}
+
+
+//previous movement
+		// //update x and y position of cyan ghost
+		// x_cyan = x_cyan + vx_cyan;
+		// y_cyan = y_cyan + vy_cyan;
+		// usleep(100);
+		// *writex_cyan = x_cyan; 
+		// usleep(100);
+		// *writey_cyan = y_cyan;
+		// //update x and y position of orange ghost
+		// x_orange = x_orange + vx_orange;
+		// y_orange = y_orange + vy_orange;
+		// usleep(100);
+		// *writex_orange = x_orange;
+		// usleep(100);
+		// *writey_orange = y_orange;
+		// //update x and y position of pink ghost
+		// x_pink = x_pink + vx_pink;
+		// y_pink = y_pink + vy_pink;
+		// usleep(100);
+		// *writex_pink = x_pink;
+		// usleep(100);
+		// *writey_pink = y_pink;
 
 
 		//pacman movement from user input
@@ -457,12 +604,19 @@ int main(){
 	}
 }
 
-int randomfunc () {
+int randomfunc (int g) {
 
    time_t t;
-   srand((unsigned) time(&t));
-      int x = (rand() % 4) + 1;
-      printf("%d\n", x);
-   return x;
+   int n[ 4 ]; 
+   int i,j;
+   srand((unsigned) time(&t));         
+   for ( i = 0; i < 4; i++ ) {
+      n[ i ] = ((rand() % 4) + 1); 
+   }  
+   /* Uncomment if want to see numbers */
+  // for (j = 0; j < 4; j++ ) {
+    //  printf("Element[%d] = %d\n", j, n[j] );
+   }
+ return n[g];
 }
 			
