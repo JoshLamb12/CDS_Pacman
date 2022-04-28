@@ -14,6 +14,7 @@ entity de10_vga_raster is
 	(
 		reset       : in std_logic;
 		clk         : in std_logic; -- Should be 50.0MHz
+		--blue_check : out std_logic;
 		-- Read from memory to access position
 		read        : in std_logic;
 		write       : in std_logic;
@@ -30,6 +31,7 @@ entity de10_vga_raster is
 		VGA_R, -- Red[7:0]
 		VGA_G, -- Green[7:0]
 		VGA_B       : out std_logic_vector(7 downto 0) -- Blue[7:0]
+		
 	);
 end de10_vga_raster;
 architecture rtl of de10_vga_raster is
@@ -158,7 +160,7 @@ architecture rtl of de10_vga_raster is
 		port
 		(
 			clk, en  : in std_logic;
-			addr     : in unsigned(18 downto 0);
+			addr     : in unsigned(18 downto 0); 
 			data     : out unsigned(27 downto 0)
 		);
 	end component;
@@ -216,6 +218,8 @@ architecture rtl of de10_vga_raster is
 	constant maplen_y : integer := 480; --y length of map overlay
 	
 	signal mult_result, red_result, cyan_result, orange_result, pink_result, pacman_result, scared_result, map_result : unsigned (19 downto 0) := (others => '0');
+	
+	signal blue_check : std_logic := '0';
 	
 	-- need to clock at about 25 MHz for NTSC VGA
 	signal clk_25 : std_logic := '0';
@@ -366,14 +370,7 @@ begin
 		if rising_edge(clk_25) then
 			if reset = '1' then
 				readdata <= (others => '0');
-				-- sprite_y <= "0011110000"; -- 240
-				-- sprite_x <= "1000011100"; --540
-				red_ghost_sprite_x <= "0011110000";
-				red_ghost_sprite_y <= "1000011100";
-				cyan_ghost_sprite_x <= "0011110000";
-				cyan_ghost_sprite_y <= "1000011100";
-				map_sprite_x <= "0011110000";--"0011110000";
-				map_sprite_y <= "1000011100";--"1000011100";
+				--writedata <= (others => '0');
 			elsif chipselect = '1' then
 				if read = '1' then
 					if address = "00000" then
@@ -483,6 +480,12 @@ begin
 						pacman_sprite_y <= pacman_sprite_y;
 						pacman_sprite_x <= pacman_sprite_x;
 						which_pacman_spr <= (unsigned(writedata(15 downto 0))); --select animation, 29 (58)
+					elsif address = "01011" then
+						map_sprite_y <= unsigned(writedata(9 downto 0));  -- write map y, 11 (22)
+						map_sprite_x <= map_sprite_x;
+					elsif address = "01100" then
+						map_sprite_y <=  map_sprite_y;
+						map_sprite_x <= unsigned(writedata(9 downto 0));  -- write map x, 12 (24)		
 					else
 						sprite_y <= sprite_y;
 						sprite_x <= sprite_x;
@@ -793,9 +796,10 @@ begin
 	end process Pacman_Sprite_Load_Process;
 	
 	--map_result <= (Vcount-1)+(Hcount-1)); -- minus 1 in horiz and vert deals with off-by-one behavior in valid area check;
-	map_result <= (Vcount - map_sprite_y - 1) * maplen_y; --(Hcount - map_sprite_x - 1);
+	--map_result <= (Vcount - map_sprite_y - 1) * maplen_y + (Hcount - map_sprite_x - 1);
+	--map_result <= (Vcount * 435) + (Hcount * 435);
 	--map_result <= (Vcount * Hcount);
-	--map_result <= ()
+	map_result <= (vcount - 35) * maplen_x + (Hcount - 144);
 	map_sprite_address <= map_result(18 downto 0);
 	--red
 	red_result <= (Vcount - red_ghost_sprite_y - 1) * sprlen_y + (Hcount - red_ghost_sprite_x - 1); -- minus 1 in horiz and vert deals with off-by-one behavior in valid area check;
@@ -841,8 +845,19 @@ begin
 	                   pacman_up_data when "100", -- 4 is up
 	                   pacman_down_data when "101", --5 is down
 	                   (others => '0') when others;
-
-
+							 
+							 
+	blue_pixel_check : process(map_sprite_address)
+	
+			begin
+				if map_sprite_address(8 downto 0) = "111111111" or map_sprite_address(13) = '1' then --check for blue pixels pink pixels
+						blue_check <= '1';
+				else
+						blue_check <= '0';
+				end if;
+			
+			
+		end process blue_pixel_check;
 
 	-- Registered video signals going to the video DAC
 	VideoOut : process (clk_25, reset)
@@ -872,14 +887,10 @@ begin
 				VGA_R <= std_logic_vector(spr_data_pacman(23 downto 16));
 				VGA_G <= std_logic_vector(spr_data_pacman(15 downto 8));
 				VGA_B <= std_logic_vector(spr_data_pacman(7 downto 0));
-			-- elsif show_map = '1' and map_sprite_data(24) = '0' then
-			-- VGA_R <= std_logic_vector(map_sprite_data(23 downto 16));
-			-- VGA_G <= std_logic_vector(map_sprite_data(15 downto 8));
-			-- VGA_B <= std_logic_vector(map_sprite_data(7 downto 0));
 			elsif vga_hblank = '0' and vga_vblank = '0' then-- showmap
-				VGA_R <= std_logic_vector(map_sprite_data(23 downto 16));
-				VGA_G <= std_logic_vector(map_sprite_data(15 downto 8));
-				VGA_B <= std_logic_vector(map_sprite_data(7 downto 0));
+			 	 VGA_R <= std_logic_vector(map_sprite_data(23 downto 16));
+			 	 VGA_G <= std_logic_vector(map_sprite_data(15 downto 8));
+			 	 VGA_B <= std_logic_vector(map_sprite_data(7 downto 0));
 			else --default to showing black
 				VGA_R <= "00000000";
 				VGA_G <= "00000000";

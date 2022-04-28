@@ -56,7 +56,10 @@
 // VTOTAL - VFRONT_PORCH - VACTIVE
 #define TOP_EDGE 30
 // VTOTAL - VFRONT_PORCH
-#define BOTTOM_EDGE 515
+#define BOTTOM_EDGE 500
+//map boundaries
+#define LEFT_WALL 230+100
+
 
 
 void *base;
@@ -99,6 +102,7 @@ uint32_t *key2;
 uint32_t *key3;
 
 int fd;
+int p[4] = {4,4,4,4};
 
 void handler(int signo){
 	*key0 = 0x0; //up
@@ -116,38 +120,28 @@ int main(){
 	int ghost_time = 0;
 	unsigned int is_blank = 0;
 
-	unsigned int x_red = 250;
-	unsigned int y_red = 250;
-	unsigned int calcx_red = 435;
-	unsigned int calcy_red = 435;
+	unsigned int x_red = 320;
+	unsigned int y_red = 240;
 	unsigned int vx_red = 1; //"positive direction"
 	unsigned int vy_red = 1; //"positive direction"
 
-	unsigned int x_cyan = 435;
-	unsigned int y_cyan = 435;
-	unsigned int calcx_cyan = 435;
-	unsigned int calcy_cyan = 435;
+	unsigned int x_cyan = 320-25;
+	unsigned int y_cyan = 240;
 	unsigned int vx_cyan = 1; //"positive direction"
 	unsigned int vy_cyan = 1; //"positive direction"
 
-	unsigned int x_orange = 300;
-	unsigned int y_orange = 400;
-	unsigned int calcx_orange = 435;
-	unsigned int calcy_orange = 435;
+	unsigned int x_orange = 320+25;
+	unsigned int y_orange = 240;
 	unsigned int vx_orange = 1; //"positive direction"
 	unsigned int vy_orange = 1; //"positive direction"
 
-	unsigned int x_pink = 100;
-	unsigned int y_pink = 435;
-	unsigned int calcx_pink = 435;
-	unsigned int calcy_pink = 435;
+	unsigned int x_pink = 320+55;
+	unsigned int y_pink = 240;
 	unsigned int vx_pink = 1; //"positive direction"
 	unsigned int vy_pink = 1; //"positive direction"
 
-	unsigned int x_pacman = 435;
-	unsigned int y_pacman = 435;
-	unsigned int calcx_pacman = 435;
-	unsigned int calcy_pacman = 435;
+	unsigned int x_pacman = 323+35;
+	unsigned int y_pacman = 274+144;
 	unsigned int vx_pacman = 1; //"positive direction"
 	unsigned int vy_pacman = 1; //"positive direction"
 
@@ -157,9 +151,9 @@ int main(){
 	unsigned int sprite_cycle_cyan = 2;
 	unsigned int sprite_cycle_pacman = 1;
 	unsigned int scnt = 0;
-	unsigned int pacplus = 0;
+	unsigned int pacplus = 0; 
 
-	const int sprite_timer = 60; //smaller value will make animation go faster
+	const int sprite_timer = 40; //smaller value will make animation go faster
 	
 	fd=open("/dev/mem", O_RDWR|O_SYNC);
 	if(fd<0){
@@ -237,7 +231,7 @@ int main(){
 	*key1 = 0x1; //down
 	*key2 = 0x1; //right
 	*key3 = 0x1; //left
-	int p = 1;
+	//int p = 1;
 	
 	for(;;){
 		usleep(5000);
@@ -286,121 +280,199 @@ int main(){
 			printf("Not blanked\n");
 		}
 
-		//detail and handle boundary conditions
-		if((y_red < (TOP_EDGE+RADIUS)) | (y_red > (BOTTOM_EDGE-RADIUS))){
-			vy_red=-vy_red;
-		}
-		if((x_red < (LEFT_EDGE+RADIUS)) | (x_red > (RIGHT_EDGE-RADIUS))){
-			vx_red=-vx_red;
-		}
-
-		if((y_cyan < (TOP_EDGE+RADIUS)) | (y_cyan > (BOTTOM_EDGE-RADIUS))){
-			vy_cyan=-vy_cyan;
-		}
-		if((x_cyan < (LEFT_EDGE+RADIUS)) | (x_cyan > (RIGHT_EDGE-RADIUS))){
-			vx_cyan=-vx_cyan;
-		}
-
-		if((y_orange < (TOP_EDGE+RADIUS)) | (y_orange > (BOTTOM_EDGE-RADIUS))){
-			vy_orange=-vy_orange;
-		}
-		if((x_orange < (LEFT_EDGE+RADIUS)) | (x_orange > (RIGHT_EDGE-RADIUS))){
-			vx_orange=-vx_orange;
-		}
-
-		if((y_pink < (TOP_EDGE+RADIUS)) | (y_pink > (BOTTOM_EDGE-RADIUS))){
-			vy_pink=-vy_pink;
-		}
-		if((x_pink < (LEFT_EDGE+RADIUS)) | (x_pink > (RIGHT_EDGE-RADIUS))){
-			vx_pink=-vx_pink;		
-		}
-
-		if((y_pacman < (TOP_EDGE+RADIUS)) | (y_pacman > (BOTTOM_EDGE-RADIUS))){
-			vy_pacman=-vy_pacman;
-		}
-		if((x_pacman < (LEFT_EDGE+RADIUS)) | (x_pacman > (RIGHT_EDGE-RADIUS))){
-			vx_pacman=-vx_pacman;		
-		}
-		
-		//update x and y position of red ghost
-		// x_red = x_red + vx_red;
-		// y_red = y_red + vy_red;
-		// usleep(100);
-		// *writex_red = x_red;
-		// usleep(100);
-		// *writey_red = y_red;
-
-	// if (ghost_time % 10 == 9) {
-
-	// 	int p = randomfunc();
-	// 	int dir_int = p;
-    // }
-	int p = randomfunc();
 	
-	if(p == 1){
-		if(y_red > (TOP_EDGE+RADIUS)){
+	p[0] = randomfunc(0);
+	p[1] = randomfunc(1);
+	p[2] = randomfunc(2);
+	p[3] = randomfunc(3);
+
+
+	//red ghost movement
+	if(p[0] == 1){
+		if(y_red >= (TOP_EDGE+RADIUS)){
 			y_red = y_red - 1;
 			usleep(100);
 			*writey_red = y_red;
 		}
 		else{
-			p = 2;
+			p[0] = 2;
 		}
 	}
 	
-    if(p == 2){
-		if(y_red < (BOTTOM_EDGE-RADIUS)){
+    if(p[0] == 2){
+		if(y_red <= (BOTTOM_EDGE-RADIUS)){
         	y_red = y_red + 1;
 			usleep(100);
 			*writey_red = y_red;
 		}
 		else {
-			p = 1;
+			p[0] = 1;
 		}
 	}
 
 	
-    if(p == 3){
+    if(p[0] == 3){
 		if(x_red != (RIGHT_EDGE-RADIUS)){
 			x_red = x_red + 1;
 			usleep(100);
 			*writex_red = x_red;
 			}
 		else {
-			p = 4;
+			p[0] = 4;
 		}	
 	}
-	if(p == 4){	
+	
+
+	
+	if(p[0] == 4){	
 		if(x_red != (LEFT_EDGE+RADIUS)) {   
        	 	x_red = x_red - 1;
 			usleep(100);
 			*writex_red = x_red;
 		}
 		else {
-			p = 3;
+			p[0] = 3;
 		}
 	}
-		//update x and y position of cyan ghost
-		x_cyan = x_cyan + vx_cyan;
-		y_cyan = y_cyan + vy_cyan;
-		usleep(100);
-		*writex_cyan = x_cyan; 
-		usleep(100);
-		*writey_cyan = y_cyan;
-		//update x and y position of orange ghost
-		x_orange = x_orange + vx_orange;
-		y_orange = y_orange + vy_orange;
-		usleep(100);
-		*writex_orange = x_orange;
-		usleep(100);
-		*writey_orange = y_orange;
-		//update x and y position of pink ghost
-		x_pink = x_pink + vx_pink;
-		y_pink = y_pink + vy_pink;
-		usleep(100);
-		*writex_pink = x_pink;
-		usleep(100);
-		*writey_pink = y_pink;
+
+	
+	//cyan ghost movement
+	if(p[1] == 1){
+		if(y_cyan >= (TOP_EDGE+RADIUS)){
+			y_cyan = y_cyan - 1;
+			usleep(100);
+			*writey_cyan = y_cyan;
+		}
+			else{
+			p[1] = 2;
+		}
+	}
+	
+    if(p[1] == 2){
+		if(y_cyan <= (BOTTOM_EDGE-RADIUS)){
+        	y_cyan = y_cyan + 1;
+			usleep(100);
+			*writey_cyan = y_cyan;
+		}
+		else {
+			p[1] = 1;
+		}
+	}
+
+	
+    if(p[1] == 3){
+		if(x_cyan != (RIGHT_EDGE-RADIUS)){
+			x_cyan = x_cyan + 1;
+			usleep(100);
+			*writex_cyan = x_cyan;
+			}
+		else {
+			p[1] = 4;
+		}	
+	}
+	if(p[1] == 4){	
+		if(x_cyan != (LEFT_EDGE+RADIUS)) {   
+       	 	x_cyan = x_cyan - 1;
+			usleep(100);
+			*writex_cyan = x_cyan;
+		}
+		else {
+			p[1] = 3;
+		}
+	}
+
+//orange ghost movement
+
+
+if(p[2] == 1){
+		if(y_orange >= (TOP_EDGE+RADIUS)){
+			y_orange = y_orange - 1;
+			usleep(100);
+			*writey_orange = y_orange;
+		}
+			else{
+			p[2] = 2;
+		}
+	}
+	
+    if(p[2] == 2){
+		if(y_orange <= (BOTTOM_EDGE-RADIUS)){
+        	y_orange = y_orange + 1;
+			usleep(100);
+			*writey_orange = y_orange;
+		}
+		else {
+			p[2] = 1;
+		}
+	}
+
+	
+    if(p[2] == 3){
+		if(x_orange != (RIGHT_EDGE-RADIUS)){
+			x_orange = x_orange + 1;
+			usleep(100);
+			*writex_orange = x_orange;
+			}
+		else {
+			p[2] = 4;
+		}	
+	}
+	if(p[2] == 4){	
+		if(x_orange != (LEFT_EDGE+RADIUS)) {   
+       	 	x_orange = x_orange - 1;
+			usleep(100);
+			*writex_orange = x_orange;
+		}
+		else {
+			p[2] = 3;
+		}
+	}
+
+	//pink ghost movement
+
+	if(p[3] == 1){
+		if(y_pink >= (TOP_EDGE+RADIUS)){
+			y_pink = y_pink - 1;
+			usleep(100);
+			*writey_pink = y_pink;
+		}
+			else{
+			p[3] = 2;
+		}
+	}
+	
+    if(p[3] == 2){
+		if(y_pink <= (BOTTOM_EDGE-RADIUS)){
+        	y_pink = y_pink + 1;
+			usleep(100);
+			*writey_pink = y_pink;
+		}
+		else {
+			p[3] = 1;
+		}
+	}
+
+	
+    if(p[3] == 3){
+		if(x_pink != (RIGHT_EDGE-RADIUS)){
+			x_pink = x_pink + 1;
+			usleep(100);
+			*writex_pink = x_pink;
+			}
+		else {
+			p[3] = 4;
+		}	
+	}
+	if(p[3] == 4){	
+		if(x_pink != (LEFT_EDGE+RADIUS)) {   
+       	 	x_pink = x_pink - 1;
+			usleep(100);
+			*writex_pink = x_pink;
+		}
+		else {
+			p[3] = 3;
+		}
+	}
 
 
 		//pacman movement from user input
@@ -416,25 +488,52 @@ int main(){
 			*sprite_select_pacman = sprite_cycle_pacman;
 			y_pacman= y_pacman - 1;
 			usleep(100);
-			*writey_pacman = y_pacman;-
+			*writey_pacman = y_pacman;
 		}
 		if(*key2 == 0){//right
 			sprite_cycle_pacman = 1;
 			*sprite_select_pacman = sprite_cycle_pacman;
 			x_pacman = x_pacman + 1;
 			usleep(100);
-			*writex_pacman = x_pacman; 
+			*writex_pacman = x_pacman;
+			 
 		}
-		if(*key3 == 0){//left
+		if(*key3 == 0 && x_pacman > LEFT_WALL + RADIUS){//left
 			sprite_cycle_pacman = 3;
+			
+			if (pacplus >= sprite_timer){
+				pacplus = 0;
+				//sprite_cycle_pacman = 3;
+				if (sprite_cycle_pacman == 3){
+					sprite_cycle_pacman = 2;
+				}
+				else{
+					sprite_cycle_pacman = 3; //closed pacman
+				}			
+			}
+			pacplus++;
 			*sprite_select_pacman = sprite_cycle_pacman;
 			x_pacman = x_pacman - 1;
 			usleep(100);
 			*writex_pacman = x_pacman;
+			
+
 		}
+
+					
+			// // if((x_pacman == x_red) && y_pacman == y_red  ){
+			// if(((x_pacman-10)*(x_pacman-20) <= 0) && (y_pacman-10)*(x_pacman-20) <=0 ){	
+			// 	x_pacman = 50;
+			// 	y_pacman = 50;
+			// 	*writex_pacman = x_pacman;
+			// 	*writey_pacman = y_pacman;
+			// }
+
+
 
 		// this will change the sprite based off of the which_spr 
 		// with/select condition written in vhdl (815)
+
 			if (scnt >= sprite_timer){
 				scnt = 0;
 				if (sprite_cycle == 1){
@@ -452,17 +551,24 @@ int main(){
 				*sprite_select_pink = sprite_cycle;
 				*sprite_select_pacman = sprite_cycle_pacman;
 		
-
 		
 	}
 }
 
-int randomfunc () {
+int randomfunc (int g) {
 
    time_t t;
-   srand((unsigned) time(&t));
-      int x = (rand() % 4) + 1;
-      printf("%d\n", x);
-   return x;
-}
+   int n[ 4 ]; 
+   int i,j;
+   srand((unsigned) time(&t));         
+   for ( i = 0; i < 4; i++ ) {
+      n[ i ] = ((rand() % 4) + 1); 
+   }  
+   /* Uncomment if want to see numbers */
+  // for (j = 0; j < 4; j++ ) {
+    //  printf("Element[%d] = %d\n", j, n[j] );
+	return n[g];
+   }
+ 
+
 			

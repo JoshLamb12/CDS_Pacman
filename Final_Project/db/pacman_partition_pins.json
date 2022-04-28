@@ -8,7 +8,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "VGA_HS",
+					"name" : "VGA_CLK",
 					"strict" : false
 				},
 				{
@@ -44,10 +44,6 @@
 					"strict" : false
 				},
 				{
-					"name" : "VGA_CLK",
-					"strict" : false
-				},
-				{
 					"name" : "VGA_G[0]",
 					"strict" : false
 				},
@@ -77,6 +73,10 @@
 				},
 				{
 					"name" : "VGA_G[7]",
+					"strict" : false
+				},
+				{
+					"name" : "VGA_HS",
 					"strict" : false
 				},
 				{
@@ -124,7 +124,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "KEY[1]",
+					"name" : "KEY[3]",
 					"strict" : false
 				},
 				{
@@ -132,7 +132,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "KEY[3]",
+					"name" : "KEY[1]",
 					"strict" : false
 				}
 			]
