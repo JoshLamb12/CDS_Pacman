@@ -63,7 +63,8 @@ module hps (
 	memory_mem_dqs_n,
 	memory_mem_odt,
 	memory_mem_dm,
-	memory_oct_rzqin);	
+	memory_oct_rzqin,
+	sw0_external_connection_export);	
 
 	input		clk_clk;
 	output	[7:0]	de10_vga_raster_0_vga_b_export;
@@ -129,4 +130,5 @@ module hps (
 	output		memory_mem_odt;
 	output	[3:0]	memory_mem_dm;
 	input		memory_oct_rzqin;
+	input		sw0_external_connection_export;
 endmodule

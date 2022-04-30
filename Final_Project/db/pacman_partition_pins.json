@@ -8,10 +8,6 @@
 					"strict" : false
 				},
 				{
-					"name" : "VGA_CLK",
-					"strict" : false
-				},
-				{
 					"name" : "VGA_B[0]",
 					"strict" : false
 				},
@@ -41,6 +37,10 @@
 				},
 				{
 					"name" : "VGA_B[7]",
+					"strict" : false
+				},
+				{
+					"name" : "VGA_CLK",
 					"strict" : false
 				},
 				{
@@ -121,6 +121,10 @@
 				},
 				{
 					"name" : "KEY[0]",
+					"strict" : false
+				},
+				{
+					"name" : "SW[0]",
 					"strict" : false
 				},
 				{

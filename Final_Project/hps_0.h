@@ -31,15 +31,39 @@
 #define DE10_VGA_RASTER_0_END 0x3f
 
 /*
+ * Macros for device 'sw0', class 'altera_avalon_pio'
+ * The macros are prefixed with 'SW0_'.
+ * The prefix is the slave descriptor.
+ */
+#define SW0_COMPONENT_TYPE altera_avalon_pio
+#define SW0_COMPONENT_NAME sw0
+#define SW0_BASE 0x40
+#define SW0_SPAN 16
+#define SW0_END 0x4f
+#define SW0_BIT_CLEARING_EDGE_REGISTER 0
+#define SW0_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define SW0_CAPTURE 0
+#define SW0_DATA_WIDTH 1
+#define SW0_DO_TEST_BENCH_WIRING 0
+#define SW0_DRIVEN_SIM_VALUE 0
+#define SW0_EDGE_TYPE NONE
+#define SW0_FREQ 50000000
+#define SW0_HAS_IN 1
+#define SW0_HAS_OUT 0
+#define SW0_HAS_TRI 0
+#define SW0_IRQ_TYPE NONE
+#define SW0_RESET_VALUE 0
+
+/*
  * Macros for device 'key3', class 'altera_avalon_pio'
  * The macros are prefixed with 'KEY3_'.
  * The prefix is the slave descriptor.
  */
 #define KEY3_COMPONENT_TYPE altera_avalon_pio
 #define KEY3_COMPONENT_NAME key3
-#define KEY3_BASE 0x40
+#define KEY3_BASE 0x50
 #define KEY3_SPAN 16
-#define KEY3_END 0x4f
+#define KEY3_END 0x5f
 #define KEY3_BIT_CLEARING_EDGE_REGISTER 0
 #define KEY3_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define KEY3_CAPTURE 0
@@ -61,9 +85,9 @@
  */
 #define KEY2_COMPONENT_TYPE altera_avalon_pio
 #define KEY2_COMPONENT_NAME key2
-#define KEY2_BASE 0x50
+#define KEY2_BASE 0x60
 #define KEY2_SPAN 16
-#define KEY2_END 0x5f
+#define KEY2_END 0x6f
 #define KEY2_BIT_CLEARING_EDGE_REGISTER 0
 #define KEY2_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define KEY2_CAPTURE 0
@@ -85,9 +109,9 @@
  */
 #define KEY1_COMPONENT_TYPE altera_avalon_pio
 #define KEY1_COMPONENT_NAME key1
-#define KEY1_BASE 0x60
+#define KEY1_BASE 0x70
 #define KEY1_SPAN 16
-#define KEY1_END 0x6f
+#define KEY1_END 0x7f
 #define KEY1_BIT_CLEARING_EDGE_REGISTER 0
 #define KEY1_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define KEY1_CAPTURE 0
@@ -109,9 +133,9 @@
  */
 #define KEY0_COMPONENT_TYPE altera_avalon_pio
 #define KEY0_COMPONENT_NAME key0
-#define KEY0_BASE 0x70
+#define KEY0_BASE 0x80
 #define KEY0_SPAN 16
-#define KEY0_END 0x7f
+#define KEY0_END 0x8f
 #define KEY0_BIT_CLEARING_EDGE_REGISTER 0
 #define KEY0_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define KEY0_CAPTURE 0

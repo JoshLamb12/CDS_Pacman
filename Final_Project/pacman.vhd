@@ -196,6 +196,7 @@ architecture rtl of pacman is
 			memory_mem_odt                     : out   std_logic;                                        -- mem_odt
 			memory_mem_dm                      : out   std_logic_vector(3 downto 0);                     -- mem_dm
 			memory_oct_rzqin                   : in    std_logic                     := 'X';              -- oct_rzqin
+			sw0_external_connection_export     : in    std_logic                     := 'X';              -- export
 			key1_external_connection_export    : in    std_logic                     := 'X';             -- export
 			key2_external_connection_export    : in    std_logic                     := 'X';             -- export
 			key3_external_connection_export    : in    std_logic                     := 'X';             -- export
@@ -273,7 +274,8 @@ u0 : component hps
 		key1_external_connection_export    => KEY(1),    --    key1_external_connection.export
 		key2_external_connection_export    => KEY(2),    --    key2_external_connection.export
 		key3_external_connection_export    => KEY(3),    --    key3_external_connection.export
-		key0_external_connection_export    => KEY(0)     --    key0_external_connection.export
+		key0_external_connection_export    => KEY(0),     --    key0_external_connection.export
+		sw0_external_connection_export => SW(0)				-- sw0_external_connection.export
 
 	);
 	

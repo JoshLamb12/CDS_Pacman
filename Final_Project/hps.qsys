@@ -130,7 +130,7 @@
    {
       datum baseAddress
       {
-         value = "112";
+         value = "128";
          type = "String";
       }
    }
@@ -146,7 +146,7 @@
    {
       datum baseAddress
       {
-         value = "96";
+         value = "112";
          type = "String";
       }
    }
@@ -162,7 +162,7 @@
    {
       datum baseAddress
       {
-         value = "80";
+         value = "96";
          type = "String";
       }
    }
@@ -175,6 +175,22 @@
       }
    }
    element key3.s1
+   {
+      datum baseAddress
+      {
+         value = "80";
+         type = "String";
+      }
+   }
+   element sw0
+   {
+      datum _sortIndex
+      {
+         value = "7";
+         type = "int";
+      }
+   }
+   element sw0.s1
    {
       datum baseAddress
       {
@@ -266,6 +282,11 @@
    type="conduit"
    dir="end" />
  <interface name="memory" internal="hps_0.memory" type="conduit" dir="end" />
+ <interface
+   name="sw0_external_connection"
+   internal="sw0.external_connection"
+   type="conduit"
+   dir="end" />
  <module name="clk_0" kind="clock_source" version="18.1" enabled="1">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
@@ -863,6 +884,20 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="1" />
  </module>
+ <module name="sw0" kind="altera_avalon_pio" version="18.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="50000000" />
+  <parameter name="direction" value="Input" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="1" />
+ </module>
  <connection
    kind="avalon"
    version="18.1"
@@ -878,7 +913,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="key0.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0070" />
+  <parameter name="baseAddress" value="0x0080" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -887,7 +922,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="key1.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0060" />
+  <parameter name="baseAddress" value="0x0070" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -896,7 +931,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="key2.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0050" />
+  <parameter name="baseAddress" value="0x0060" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -905,6 +940,15 @@
    start="hps_0.h2f_lw_axi_master"
    end="key3.s1">
   <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0050" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="hps_0.h2f_lw_axi_master"
+   end="sw0.s1">
+  <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0040" />
   <parameter name="defaultConnection" value="false" />
  </connection>
@@ -912,6 +956,7 @@
  <connection kind="clock" version="18.1" start="clk_0.clk" end="key1.clk" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="key2.clk" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="key3.clk" />
+ <connection kind="clock" version="18.1" start="clk_0.clk" end="sw0.clk" />
  <connection
    kind="clock"
    version="18.1"
@@ -931,6 +976,7 @@
  <connection kind="reset" version="18.1" start="clk_0.clk_reset" end="key1.reset" />
  <connection kind="reset" version="18.1" start="clk_0.clk_reset" end="key2.reset" />
  <connection kind="reset" version="18.1" start="clk_0.clk_reset" end="key3.reset" />
+ <connection kind="reset" version="18.1" start="clk_0.clk_reset" end="sw0.reset" />
  <connection
    kind="reset"
    version="18.1"

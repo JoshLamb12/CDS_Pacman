@@ -4,7 +4,7 @@
 -- Description: VGA raster controller for DE10-Standard with integrated sprite
 -- selector and Avalon memory-mapped IO
 -- Adapted from DE2 controller written by Stephen A. Edwards
---Note: revised by CDS team 8 as of 4/15/22
+--Note: revised by CDS team 8 as of 4/28/22
 -------------------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;
@@ -99,14 +99,14 @@ architecture rtl of de10_vga_raster is
 			data     : out unsigned(27 downto 0)
 		);
 	end component;
---	component scared1_vga8_25x25 is
---		port
---		(
---			clk, en  : in std_logic;
---			addr     : in unsigned(9 downto 0);
---			data     : out unsigned(27 downto 0)
---		);
---	end component;
+	component scared1_vga8_25x25 is
+		port
+		(
+			clk, en  : in std_logic;
+			addr     : in unsigned(9 downto 0);
+			data     : out unsigned(27 downto 0)
+		);
+	end component;
 --	component scared2_vga8_25x25 is
 --		port
 --		(
@@ -298,14 +298,14 @@ begin
 		addr  => pink_address,
 		data  => pink2_data
 	);
---	scared1_inst : scared1_vga8_25x25
---	port map
---	(
---		clk   => clk_25,
---		en    => scared_area,
---		addr  => scared_address,
---		data  => scared1_data
---	);
+	scared1_inst : scared1_vga8_25x25
+	port map
+	(
+		clk   => clk_25,
+		en    => scared_area,
+		addr  => scared_address,
+		data  => scared1_data
+	);
 --	scared2_inst : scared2_vga8_25x25
 --	port map
 --	(
@@ -401,10 +401,10 @@ begin
 					elsif address <= "01010" then
 						readdata <= "000000" & std_logic_vector(pacman_sprite_x); -- read pacman x, 10 (20)
 						--frightened/scared ghost
-					-- elsif address <= "01011" then
-					-- 	readdata <= "000000" & std_logic_vector(scared_ghost_sprite_y); -- read scared y, 11 (22)
-					-- elsif address <= "01100" then
-					-- 	readdata <= "000000" & std_logic_vector(scared_ghost_sprite_x); -- read scared x, 12 (24)
+					-- elsif address <= "11110" then
+					-- 	readdata <= "000000" & std_logic_vector(scared_ghost_sprite_y); -- read scared y, 30 (60)
+					-- elsif address <= "11111" then
+					-- 	readdata <= "000000" & std_logic_vector(scared_ghost_sprite_x); -- read scared x, 31 (62)
 						--map background (Read only)
 					elsif address = "01101" then --13, read map x (26)
 						readdata <= "000000" & std_logic_vector(map_sprite_y);
@@ -480,12 +480,12 @@ begin
 						pacman_sprite_y <= pacman_sprite_y;
 						pacman_sprite_x <= pacman_sprite_x;
 						which_pacman_spr <= (unsigned(writedata(15 downto 0))); --select animation, 29 (58)
-					elsif address = "01011" then
-						map_sprite_y <= unsigned(writedata(9 downto 0));  -- write map y, 11 (22)
-						map_sprite_x <= map_sprite_x;
-					elsif address = "01100" then
-						map_sprite_y <=  map_sprite_y;
-						map_sprite_x <= unsigned(writedata(9 downto 0));  -- write map x, 12 (24)		
+					-- elsif address = "01011" then
+					-- 	map_sprite_y <= unsigned(writedata(9 downto 0));  -- write map y, 11 (22)
+					-- 	map_sprite_x <= map_sprite_x;
+					-- elsif address = "01100" then
+					-- 	map_sprite_y <=  map_sprite_y;
+					-- 	map_sprite_x <= unsigned(writedata(9 downto 0));  -- write map x, 12 (24)		
 					else
 						sprite_y <= sprite_y;
 						sprite_x <= sprite_x;
@@ -836,6 +836,7 @@ begin
 	with which_pink_spr(1 downto 0) select
 	spr_data_pink <= pink1_data when "01",
 	                 pink2_data when "10",
+					 scared1_data when "11",
 	                 (others => '0') when others;
 
 	with which_pacman_spr(2 downto 0) select
@@ -846,18 +847,15 @@ begin
 	                   pacman_down_data when "101", --5 is down
 	                   (others => '0') when others;
 							 
-							 
-	blue_pixel_check : process(map_sprite_address)
-	
-			begin
-				if map_sprite_address(8 downto 0) = "111111111" or map_sprite_address(13) = '1' then --check for blue pixels pink pixels
-						blue_check <= '1';
-				else
-						blue_check <= '0';
-				end if;
-			
-			
-		end process blue_pixel_check;
+ 
+	blue_pixel_check : process (map_sprite_data)
+	begin
+		if map_sprite_data(8 downto 0) = "111111111" or map_sprite_data(13) = '1' then --check for blue pixels pink pixels
+			blue_check <= '1';
+		else
+			blue_check <= '0';
+		end if;
+	end process blue_pixel_check;
 
 	-- Registered video signals going to the video DAC
 	VideoOut : process (clk_25, reset)

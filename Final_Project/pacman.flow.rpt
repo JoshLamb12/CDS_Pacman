@@ -1,5 +1,5 @@
 Flow report for pacman
-Wed Apr 27 22:25:50 2022
+Fri Apr 29 15:32:33 2022
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,15 +40,15 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Flow Summary                                                                  ;
 +---------------------------------+---------------------------------------------+
-; Flow Status                     ; Successful - Wed Apr 27 22:25:50 2022       ;
+; Flow Status                     ; Successful - Fri Apr 29 15:32:33 2022       ;
 ; Quartus Prime Version           ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                   ; pacman                                      ;
 ; Top-level Entity Name           ; pacman                                      ;
 ; Family                          ; Cyclone V                                   ;
 ; Device                          ; 5CSXFC6D6F31C6                              ;
 ; Timing Models                   ; Final                                       ;
-; Logic utilization (in ALMs)     ; 3,356 / 41,910 ( 8 % )                      ;
-; Total registers                 ; 1267                                        ;
+; Logic utilization (in ALMs)     ; 2,185 / 41,910 ( 5 % )                      ;
+; Total registers                 ; 1364                                        ;
 ; Total pins                      ; 180 / 499 ( 36 % )                          ;
 ; Total virtual pins              ; 0                                           ;
 ; Total block memory bits         ; 262,144 / 5,662,720 ( 5 % )                 ;
@@ -67,7 +67,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 04/27/2022 22:17:02 ;
+; Start date & time ; 04/29/2022 15:18:07 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; pacman              ;
 +-------------------+---------------------+
@@ -78,7 +78,7 @@ refer to the applicable agreement for further details.
 +---------------------------------------+----------------------------------------+---------------+-------------+--------------------+
 ; Assignment Name                       ; Value                                  ; Default Value ; Entity Name ; Section Id         ;
 +---------------------------------------+----------------------------------------+---------------+-------------+--------------------+
-; COMPILER_SIGNATURE_ID                 ; 154027287689085.165111221708980        ; --            ; --          ; --                 ;
+; COMPILER_SIGNATURE_ID                 ; 154027287689085.165125988426704        ; --            ; --          ; --                 ;
 ; ECO_REGENERATE_REPORT                 ; On                                     ; Off           ; --          ; --                 ;
 ; EDA_DESIGN_INSTANCE_NAME              ; NA                                     ; --            ; --          ; de10_vga_raster_tb ;
 ; EDA_NATIVELINK_SIMULATION_TEST_BENCH  ; de10_vga_raster_tb                     ; --            ; --          ; eda_simulation     ;
@@ -109,12 +109,12 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:05:43     ; 1.2                     ; 5652 MB             ; 00:07:28                           ;
-; Fitter               ; 00:02:02     ; 1.2                     ; 7406 MB             ; 00:04:15                           ;
-; Assembler            ; 00:00:13     ; 1.0                     ; 4912 MB             ; 00:00:13                           ;
-; Timing Analyzer      ; 00:00:37     ; 1.5                     ; 5628 MB             ; 00:00:53                           ;
-; EDA Netlist Writer   ; 00:00:04     ; 1.0                     ; 4857 MB             ; 00:00:05                           ;
-; Total                ; 00:08:39     ; --                      ; --                  ; 00:12:54                           ;
+; Analysis & Synthesis ; 00:08:16     ; 1.2                     ; 5451 MB             ; 00:09:50                           ;
+; Fitter               ; 00:01:57     ; 1.2                     ; 7412 MB             ; 00:04:09                           ;
+; Assembler            ; 00:00:14     ; 1.0                     ; 4902 MB             ; 00:00:13                           ;
+; Timing Analyzer      ; 00:00:39     ; 1.4                     ; 5614 MB             ; 00:00:53                           ;
+; EDA Netlist Writer   ; 00:00:04     ; 1.0                     ; 4839 MB             ; 00:00:05                           ;
+; Total                ; 00:11:10     ; --                      ; --                  ; 00:15:10                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

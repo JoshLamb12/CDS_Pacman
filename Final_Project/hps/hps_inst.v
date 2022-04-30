@@ -62,6 +62,7 @@
 		.memory_mem_dqs_n                   (<connected-to-memory_mem_dqs_n>),                   //                            .mem_dqs_n
 		.memory_mem_odt                     (<connected-to-memory_mem_odt>),                     //                            .mem_odt
 		.memory_mem_dm                      (<connected-to-memory_mem_dm>),                      //                            .mem_dm
-		.memory_oct_rzqin                   (<connected-to-memory_oct_rzqin>)                    //                            .oct_rzqin
+		.memory_oct_rzqin                   (<connected-to-memory_oct_rzqin>),                   //                            .oct_rzqin
+		.sw0_external_connection_export     (<connected-to-sw0_external_connection_export>)      //     sw0_external_connection.export
 	);
 
