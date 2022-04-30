@@ -885,7 +885,7 @@ begin
 				VGA_R <= std_logic_vector(spr_data_pacman(23 downto 16));
 				VGA_G <= std_logic_vector(spr_data_pacman(15 downto 8));
 				VGA_B <= std_logic_vector(spr_data_pacman(7 downto 0));
-			elsif vga_hblank = '0' and vga_vblank = '0' then-- showmap
+			elsif vga_hblank = '0' and vga_vblank = '0' then-- showmap always
 			 	 VGA_R <= std_logic_vector(map_sprite_data(23 downto 16));
 			 	 VGA_G <= std_logic_vector(map_sprite_data(15 downto 8));
 			 	 VGA_B <= std_logic_vector(map_sprite_data(7 downto 0));

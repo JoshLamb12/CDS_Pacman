@@ -410,7 +410,6 @@ int main() {
                 p[1] = 2;
             }
         }
-
         if(p[1] == 2) {
             if(y_cyan <= (BOTTOM_EDGE-RADIUS)) {
                 y_cyan = y_cyan + 1;
@@ -421,8 +420,6 @@ int main() {
                 p[1] = 1;
             }
         }
-
-
         if(p[1] == 3) {
             if(x_cyan != (RIGHT_EDGE-RADIUS)) {
                 x_cyan = x_cyan + 1;
@@ -455,7 +452,6 @@ int main() {
                 p[2] = 2;
             }
         }
-
         if(p[2] == 2) {
             if(y_orange <= (BOTTOM_EDGE-RADIUS)) {
                 y_orange = y_orange + 1;
@@ -466,8 +462,6 @@ int main() {
                 p[2] = 1;
             }
         }
-
-
         if(p[2] == 3) {
             if(x_orange != (RIGHT_EDGE-RADIUS)) {
                 x_orange = x_orange + 1;
@@ -500,7 +494,6 @@ int main() {
                 p[3] = 2;
             }
         }
-
         if(p[3] == 2) {
             if(y_pink <= (BOTTOM_EDGE-RADIUS)) {
                 y_pink = y_pink + 1;
@@ -511,8 +504,6 @@ int main() {
                 p[3] = 1;
             }
         }
-
-
         if(p[3] == 3) {
             if(x_pink != (RIGHT_EDGE-RADIUS)) {
                 x_pink = x_pink + 1;
