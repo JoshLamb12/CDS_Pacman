@@ -137,8 +137,8 @@ int main() {
     unsigned int x_pink = 325+35;
     unsigned int y_pink = 227 + 144;
 
-    unsigned int x_pacman = 318+35;
-    unsigned int y_pacman = 275+144;
+    unsigned int x_pacman = 300;
+    unsigned int y_pacman = 400;
 
     unsigned int sprite_cycle = 1;
     unsigned int sprite_cycle_select = 1;
@@ -156,6 +156,7 @@ int main() {
 
     //control_array (y,x) y is 0 to 479 long, x is 0 to 639. 0 is background, else boundary pixel (blue (1) or pink(2))
 	
+
     fd=open("/dev/mem", O_RDWR|O_SYNC);
     if(fd<0) {
         printf("Can't open memory\n");
@@ -234,7 +235,7 @@ int main() {
     *key3 = 0x1; //left
     *sw0 = 0x1; //for scared ghost testing
     
-    usleep(one_second * 3); //wait 3 seconds upon starting program
+    usleep(one_second); //wait 3 seconds upon starting program
 
     for(;;) {
         usleep(5000);
@@ -485,7 +486,7 @@ int main() {
 
         //pink ghost movement
         if(p[3] == 1) {
-            if(y_pink >= (TOP_EDGE+RADIUS)) {
+            if (control_array[y_pink-RADIUS][x_pink] == 0){
                 y_pink = y_pink - 1;
                 usleep(100);
                 *writey_pink = y_pink;
@@ -495,7 +496,7 @@ int main() {
             }
         }
         if(p[3] == 2) {
-            if(y_pink <= (BOTTOM_EDGE-RADIUS)) {
+              if (control_array[y_pink+RADIUS][x_pink] == 0){
                 y_pink = y_pink + 1;
                 usleep(100);
                 *writey_pink = y_pink;
@@ -505,7 +506,8 @@ int main() {
             }
         }
         if(p[3] == 3) {
-            if(x_pink != (RIGHT_EDGE-RADIUS)) {
+            //if(x_pink != (RIGHT_EDGE-RADIUS)) {
+            if (control_array[y_pink][x_pink+RADIUS] == 0){
                 x_pink = x_pink + 1;
                 usleep(100);
                 *writex_pink = x_pink;
@@ -515,7 +517,7 @@ int main() {
             }
         }
         if(p[3] == 4) {
-            if(x_pink != (LEFT_EDGE+RADIUS)) {
+             if (control_array[y_pink][x_pink-RADIUS] == 0){
                 x_pink = x_pink - 1;
                 usleep(100);
                 *writex_pink = x_pink;
@@ -539,7 +541,7 @@ int main() {
             pacplus++;
             *sprite_select_pacman = sprite_cycle_pacman;
 
-            if(control_array[y_pacman + RADIUS][x_pacman+RADIUS] == 0) {
+            if(control_array[y_pacman+35][x_pacman+144] == 0) {
                 y_pacman = y_pacman +1;
                 usleep(100);
                 *writey_pacman = y_pacman;
@@ -568,7 +570,7 @@ int main() {
             pacplus++;
             *sprite_select_pacman = sprite_cycle_pacman;
 
-            if(control_array[y_pacman + RADIUS][x_pacman+RADIUS] == 0) {
+            if(control_array[y_pacman+35][x_pacman+144] == 0) {
                 y_pacman = y_pacman - 1;
                 usleep(100);
                 *writey_pacman = y_pacman - 1;
@@ -597,7 +599,7 @@ int main() {
             }
             pacplus++;
             *sprite_select_pacman = sprite_cycle_pacman;
-            if(control_array[y_pacman + RADIUS][x_pacman+RADIUS] == 0) {
+            if(control_array[y_pacman+35][x_pacman+144] == 0) {
                 x_pacman = x_pacman + 1;
                 usleep(100);
                 *writex_pacman = x_pacman;
@@ -625,7 +627,7 @@ int main() {
             pacplus++;
             *sprite_select_pacman = sprite_cycle_pacman;
 
-            if(control_array[y_pacman + RADIUS][x_pacman+RADIUS] == 0) {
+            if(control_array[y_pacman+35][x_pacman+144] == 0) {
                 x_pacman = x_pacman - 1;
                 usleep(100);
                 *writex_pacman = x_pacman;

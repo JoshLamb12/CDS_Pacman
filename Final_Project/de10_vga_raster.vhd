@@ -848,14 +848,14 @@ begin
 	                   (others => '0') when others;
 							 
  
-	blue_pixel_check : process (map_sprite_data)
-	begin
-		if map_sprite_data(8 downto 0) = "111111111" or map_sprite_data(13) = '1' then --check for blue pixels pink pixels
-			blue_check <= '1';
-		else
-			blue_check <= '0';
-		end if;
-	end process blue_pixel_check;
+	-- blue_pixel_check : process (map_sprite_data)
+	-- begin
+	-- 	if map_sprite_data(8 downto 0) = "111111111" or map_sprite_data(13) = '1' then --check for blue pixels pink pixels
+	-- 		blue_check <= '1';
+	-- 	else
+	-- 		blue_check <= '0';
+	-- 	end if;
+	-- end process blue_pixel_check;
 
 	-- Registered video signals going to the video DAC
 	VideoOut : process (clk_25, reset)
